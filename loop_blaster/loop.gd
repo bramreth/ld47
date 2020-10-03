@@ -4,6 +4,7 @@ extends Node2D
 export(int) var max_width = 75
 export(int) var segments = 16
 export(int) var weak_segments = 4
+signal dead(this)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,10 +20,11 @@ func create_loop():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
+func start():
+	$CurveTween.play(3)
 
 func _on_Button_pressed():
-	$CurveTween.play(3)
+	start()
 
 
 func _on_CurveTween_curve_tween(sat):
@@ -30,4 +32,5 @@ func _on_CurveTween_curve_tween(sat):
 
 
 func _on_CurveTween_tween_all_completed():
+	emit_signal("dead", self)
 	queue_free()
