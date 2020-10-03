@@ -37,4 +37,6 @@ func _on_collision_area_entered(area:Area2D):
 		
 		area.loop_ref.die(true)
 		pass #COLOOSION GOES HERE, if you compare bullet_color to the line segment color you can check for hte right match as well
+	else:
+		area.loop_ref.dud()
 	self.queue_free()

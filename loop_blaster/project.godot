@@ -52,6 +52,10 @@ config/icon="res://icon.png"
 
 inputmanager="*res://inputmanager.gd"
 
+[display]
+
+window/size/resizable=false
+
 [editor_plugins]
 
 enabled=PoolStringArray( "color-palette" )

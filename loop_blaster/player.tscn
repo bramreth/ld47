@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://reload_visualiser.gd" type="Script" id=2]
+[ext_resource path="res://sfx/Laser_Shoot41.wav" type="AudioStream" id=3]
+[ext_resource path="res://sfx/reload.wav" type="AudioStream" id=4]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.933333, 0.321569, 0.32549, 0, 0.933333, 0.321569, 0.32549, 1 )
@@ -73,6 +75,10 @@ begin_cap_mode = 2
 end_cap_mode = 2
 antialiased = true
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="reload_visualiser"]
+stream = ExtResource( 4 )
+volume_db = -10.0
+
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2( 10, 0 )
 rotation = 1.5708
@@ -89,3 +95,6 @@ polygon = PoolVector2Array( 15, 0, 0, -15, -15, 0, 0, 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/knockback = SubResource( 2 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

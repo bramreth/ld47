@@ -12,6 +12,7 @@ func reload_done():
 	$left.hide()
 	$right.hide()
 	$fire.show()
+	$AudioStreamPlayer.play()
 	emit_signal('reload_done')
 
 func reload(time:float):

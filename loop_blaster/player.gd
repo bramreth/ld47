@@ -36,6 +36,7 @@ func reload_done():
 
 func shoot():
 	if can_shoot:
+		$AudioStreamPlayer.play()
 		var s = shot_particles.instance()
 		s.col = bullets[current_bullet_selection]
 		s.dir = self.global_position.direction_to($Polygon2D.global_position).normalized()

@@ -21,8 +21,8 @@ func get_segs():
 			segs[k] = true
 	return segs
 		
-		
-
+func dud():
+	$AudioStreamPlayer.play()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	create_loop()

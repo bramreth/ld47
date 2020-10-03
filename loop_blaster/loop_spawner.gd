@@ -6,6 +6,7 @@ export(int) var segs
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
 	$loop_collision.set_segs(segs)
 	if loops.empty():
 		spawn()
@@ -22,8 +23,12 @@ func spawn():
 	
 
 func replace_loop(lp, shot):
-	if shot: get_parent().add_kill()
-	else: get_parent().damage_player()
+	if shot: 
+		get_parent().add_kill()
+		$AudioStreamPlayer.pitch_scale = 1.0 + randf()/5 - 0.1
+		$AudioStreamPlayer.play()
+	else: 
+		get_parent().damage_player()
 	loops.remove(loops.find(lp))
 	if loops:
 		$loop_collision.active_loop(loops[0])
