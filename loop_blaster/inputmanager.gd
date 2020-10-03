@@ -7,7 +7,7 @@ enum CONTROL_TYPE {
 	KEYBOARD
 }
 
-var control_preference:int = CONTROL_TYPE.KEYBOARD
+var control_preference:int = CONTROL_TYPE.MOUSE
 
 
 func change_control_type(new_preference:int):

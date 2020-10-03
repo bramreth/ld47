@@ -24,6 +24,5 @@ func init(var weak_segs):
 	var start = randi()%get_point_count()
 	for i in range(weak_segs):
 		var p = (start + i) % get_point_count()
-		print(p)
 		weak_seg[p] = i
 		$WeakSpot.add_point(points[p])

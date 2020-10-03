@@ -15,16 +15,25 @@ func spawn():
 	l.segments = segs
 	add_child(l)
 	l.connect("dead", self, "replace_loop")
-	loops.append(l)
+	if loops.empty():
+		$loop_collision.active_loop(l)
+	loops.push_back(l)
 	l.start()
-	$loop_collision.active_loop(l)
+	
 
-func replace_loop(lp):
-	print(lp)
-	print("end!")
+func replace_loop(lp, shot):
+	if shot: get_parent().add_kill()
+	else: get_parent().damage_player()
 	loops.remove(loops.find(lp))
+	if loops:
+		$loop_collision.active_loop(loops[0])
+	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if loops.empty():
-		spawn()
+#func _process(delta):
+#	if loops.empty():
+#		spawn()
+
+
+func _on_Timer_timeout():
+	spawn()

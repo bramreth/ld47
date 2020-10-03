@@ -30,6 +30,11 @@ func _physics_process(delta):
 	global_position += direction * speed
 
 func _on_collision_area_entered(area:Area2D):
+	print("boom")
+	if not area.loop_ref: return
 	if area.get_weak():
+		print("BANG", area.loop_ref)
+		
+		area.loop_ref.die(true)
 		pass #COLOOSION GOES HERE, if you compare bullet_color to the line segment color you can check for hte right match as well
 	self.queue_free()

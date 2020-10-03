@@ -46,7 +46,9 @@ func _on_Button_pressed():
 func _on_CurveTween_curve_tween(sat):
 	$Line2D.distance = max_width * sat
 
+func die(shot):
+	emit_signal("dead", self, shot)
+	queue_free()
 
 func _on_CurveTween_tween_all_completed():
-	emit_signal("dead", self)
-	queue_free()
+	die(false)
