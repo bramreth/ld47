@@ -6,3 +6,4 @@
 
 [node name="loop" parent="." instance=ExtResource( 1 )]
 position = Vector2( 512, 300 )
+max_width = 768

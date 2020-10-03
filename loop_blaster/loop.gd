@@ -1,8 +1,8 @@
 extends Node2D
 
 
-export(int) var width = 75
-export(int) var segments = 62
+export(int) var max_width = 75
+export(int) var segments = 16
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,10 +11,10 @@ func _ready():
 
 func create_loop():
 	print(range(segments))
-	$Line2D.add_point(Vector2(cos(0), sin(0))*width)
+	$Line2D.add_point(Vector2(cos(0), sin(0)))
 	for seg in range(segments):
 		var p = deg2rad((float(seg+1) / segments) * 360.0)
-		$Line2D.add_point(Vector2(cos(p), sin(p))*width)
+		$Line2D.add_point(Vector2(cos(p), sin(p)))
 		print(p)
 	$Line2D.init()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,4 +23,8 @@ func create_loop():
 
 
 func _on_Button_pressed():
-	$CurveTween.start()
+	$CurveTween.play(3)
+
+
+func _on_CurveTween_curve_tween(sat):
+	$Line2D.distance = max_width * sat

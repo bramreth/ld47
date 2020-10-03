@@ -7,10 +7,11 @@
 [sub_resource type="OpenSimplexNoise" id=1]
 
 [sub_resource type="Curve" id=2]
-_data = [ Vector2( 0, 0 ), 0.0, 1.0, 0, 1, Vector2( 1, 1 ), 1.0, 0.0, 1, 0 ]
+_data = [ Vector2( 0, 1 ), 0.0, -1.0, 0, 1, Vector2( 1, 0 ), -1.0, 0.0, 1, 0 ]
 
 [node name="loop" type="Node2D"]
 script = ExtResource( 1 )
+max_width = 512
 
 [node name="Line2D" type="Line2D" parent="."]
 default_color = Color( 0.996078, 0.792157, 0.341176, 1 )
@@ -25,10 +26,13 @@ script = ExtResource( 3 )
 curve = SubResource( 2 )
 
 [node name="Button" type="Button" parent="."]
-margin_right = 12.0
-margin_bottom = 20.0
+margin_left = 80.0
+margin_top = -112.0
+margin_right = 121.0
+margin_bottom = -92.0
 text = "start"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="curve_tween" from="CurveTween" to="." method="_on_CurveTween_curve_tween"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
