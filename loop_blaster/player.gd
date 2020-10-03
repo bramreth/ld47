@@ -2,9 +2,11 @@ extends Node2D
 
 export(int) var life = 3
 export(float) var rotation_speed = 0.1
+export(float) var shoot_speed:float = 1.0
+var can_shoot:bool = true
 
 func _ready():
-	pass
+	$reload_visualiser.connect("reload_done", self, "reload_done")
 
 
 func _physics_process(delta):
@@ -20,5 +22,10 @@ func _input(event):
 		shoot()
 
 
+func reload_done():
+	can_shoot = true
+
 func shoot():
-	print("pew")
+	if can_shoot:
+		$reload_visualiser.reload(shoot_speed)
+		can_shoot = false
