@@ -1,10 +1,39 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://reload_visualiser.gd" type="Script" id=2]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.933333, 0.321569, 0.32549, 0, 0.933333, 0.321569, 0.32549, 1 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "knockback"
+length = 0.15
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Polygon2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 10, 0 ), Vector2( -5, 0 ), Vector2( 10, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Polygon2D:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.05, 0.15 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.5, 0.6 ), Vector2( 1, 1 ) ]
+}
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -57,3 +86,6 @@ position = Vector2( 0, -30 )
 [node name="current_color" type="Polygon2D" parent="Polygon2D"]
 color = Color( 0.933333, 0.321569, 0.32549, 1 )
 polygon = PoolVector2Array( 15, 0, 0, -15, -15, 0, 0, 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/knockback = SubResource( 2 )

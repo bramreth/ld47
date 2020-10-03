@@ -30,7 +30,6 @@ func _physics_process(delta):
 	global_position += direction * speed
 
 func _on_collision_area_entered(area:Area2D):
-	var line = area.get_parent()
-	if line.default_color == bullet_color:
-		pass
+	if area.get_weak():
+		pass #COLOOSION GOES HERE, if you compare bullet_color to the line segment color you can check for hte right match as well
 	self.queue_free()
