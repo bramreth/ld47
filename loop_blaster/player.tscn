@@ -10,7 +10,11 @@ script = ExtResource( 1 )
 modulate = Color( 0.0627451, 0.67451, 0.517647, 1 )
 position = Vector2( 10, 0 )
 rotation = 1.5708
+antialiased = true
 polygon = PoolVector2Array( 0, -30, -20, 0, 20, 0 )
+
+[node name="bullet_spawn" type="Node2D" parent="Polygon2D"]
+position = Vector2( 0, -30 )
 
 [node name="reload_visualiser" type="Node2D" parent="."]
 script = ExtResource( 2 )
@@ -18,12 +22,22 @@ script = ExtResource( 2 )
 [node name="Tween" type="Tween" parent="reload_visualiser"]
 
 [node name="left" type="Line2D" parent="reload_visualiser"]
-rotation = -0.872665
-points = PoolVector2Array( 30, -10, 80, -10 )
+visible = false
+rotation = -1.22173
+points = PoolVector2Array( 30, -15, 80, -15 )
 width = 5.0
-default_color = Color( 0.933333, 0.321569, 0.32549, 1 )
+default_color = Color( 1, 0.419608, 0.419608, 1 )
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
 
 [node name="right" type="Line2D" parent="reload_visualiser"]
-points = PoolVector2Array( 30, 10, 80, 10 )
+visible = false
+rotation = 1.22173
+points = PoolVector2Array( 30, 15, 80, 15 )
 width = 5.0
 default_color = Color( 0.933333, 0.321569, 0.32549, 1 )
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true

@@ -2,8 +2,10 @@ extends Node2D
 
 export(int) var life = 3
 export(float) var rotation_speed = 0.1
-export(float) var shoot_speed:float = 1.0
+export(float) var shoot_speed:float = 0.5
 var can_shoot:bool = true
+
+var bullet:PackedScene = preload("res://bullet.tscn")
 
 func _ready():
 	$reload_visualiser.connect("reload_done", self, "reload_done")
@@ -27,5 +29,9 @@ func reload_done():
 
 func shoot():
 	if can_shoot:
+		var b = bullet.instance()
+		get_parent().add_child(b)
+		b.global_position = $Polygon2D/bullet_spawn.global_position
+		b.shoot(self.global_position.direction_to($Polygon2D.global_position).normalized())
 		$reload_visualiser.reload(shoot_speed)
 		can_shoot = false
