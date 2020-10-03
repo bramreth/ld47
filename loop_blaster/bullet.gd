@@ -18,6 +18,7 @@ func _ready():
 		points.append(Vector2(size * sin(rad), size * cos(rad)))
 	$Polygon2D.polygon = points
 	$Polygon2D.color = bullet_color
+	$collision/collisionshape.shape.radius = size
 	
 	shoot(Vector2(1,1))
 
@@ -27,3 +28,9 @@ func shoot(direction:Vector2):
 
 func _physics_process(delta):
 	global_position += direction * speed
+
+func _on_collision_area_entered(area:Area2D):
+	var line = area.get_parent()
+	if line.default_color == bullet_color:
+		pass
+	self.queue_free()

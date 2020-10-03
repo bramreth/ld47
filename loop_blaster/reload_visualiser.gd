@@ -2,18 +2,23 @@ extends Node2D
 
 signal reload_done()
 
+var current_bullet_color:Color = Color("ee5253")
+var reload_color := Color("576574")
+
 func _ready():
 	$Tween.connect("tween_all_completed", self, "reload_done")
 
 func reload_done():
 	$left.hide()
 	$right.hide()
+	$fire.show()
 	emit_signal('reload_done')
 
 func reload(time:float):
 	$Tween.stop_all()
 	$left.show()
 	$right.show()
+	$fire.hide()
 	$Tween.interpolate_property(
 		$left,
 		"rotation_degrees",
@@ -35,8 +40,8 @@ func reload(time:float):
 	$Tween.interpolate_property(
 		$left,
 		"default_color",
-		Color("576574"),
-		Color("ee5253"),
+		reload_color,
+		current_bullet_color,
 		time,
 		Tween.TRANS_LINEAR,
 		Tween.EASE_OUT
@@ -62,8 +67,8 @@ func reload(time:float):
 	$Tween.interpolate_property(
 		$right,
 		"default_color",
-		Color("576574"),
-		Color("ee5253"),
+		reload_color,
+		current_bullet_color,
 		time,
 		Tween.TRANS_LINEAR,
 		Tween.EASE_OUT
