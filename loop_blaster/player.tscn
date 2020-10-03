@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://reload_visualiser.gd" type="Script" id=2]
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -10,3 +11,19 @@ modulate = Color( 0.0627451, 0.67451, 0.517647, 1 )
 position = Vector2( 10, 0 )
 rotation = 1.5708
 polygon = PoolVector2Array( 0, -30, -20, 0, 20, 0 )
+
+[node name="reload_visualiser" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="reload_visualiser"]
+
+[node name="left" type="Line2D" parent="reload_visualiser"]
+rotation = -0.872665
+points = PoolVector2Array( 30, -10, 80, -10 )
+width = 5.0
+default_color = Color( 0.933333, 0.321569, 0.32549, 1 )
+
+[node name="right" type="Line2D" parent="reload_visualiser"]
+points = PoolVector2Array( 30, 10, 80, 10 )
+width = 5.0
+default_color = Color( 0.933333, 0.321569, 0.32549, 1 )
