@@ -1,9 +1,32 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://loop.tscn" type="PackedScene" id=1]
+[ext_resource path="res://player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI.gd" type="Script" id=3]
 
 [node name="main" type="Node2D"]
 
 [node name="loop" parent="." instance=ExtResource( 1 )]
 position = Vector2( 512, 300 )
 max_width = 768
+
+[node name="Player" parent="loop" instance=ExtResource( 2 )]
+
+[node name="UI" type="Control" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 1024, 600 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="UI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -107.0
+margin_top = -20.0
+text = "Change control"
+[connection signal="pressed" from="UI/Button" to="UI" method="change_input_method"]
