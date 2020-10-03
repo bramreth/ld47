@@ -11,6 +11,7 @@ resource_local_to_scene = true
 _data = [ Vector2( 0, 1 ), 0.0, -1.0, 0, 1, Vector2( 1, 0 ), -1.0, 0.0, 1, 0 ]
 
 [node name="loop" type="Node2D"]
+visible = false
 script = ExtResource( 1 )
 max_width = 512
 

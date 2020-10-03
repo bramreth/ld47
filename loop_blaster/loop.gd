@@ -6,6 +6,22 @@ export(int) var segments = 16
 export(int) var weak_segments = 4
 signal dead(this)
 
+func get_segs():
+#	var weak_segs = []
+#	for p in len($Line2D/WeakSpot.points) - 1:
+#		weak_segs.append({[$Line2D/WeakSpot.points[p], $Line2D/WeakSpot.points[p]+1]: true})
+#	return weak_segs
+	var segs = {}
+	for p in range(len($Line2D.points)-1):
+		segs[[$Line2D.points[p], $Line2D.points[p+1 % len($Line2D.points)]]] = false
+#	for p in range(len($Line2D/WeakSpot.points)-1):
+#		segs[[$Line2D/WeakSpot.points[p], $Line2D/WeakSpot.points[p+1]]] = true
+	for k in segs.keys():
+		if k[0] in $Line2D/WeakSpot.points and k[1] in $Line2D/WeakSpot.points:
+			segs[k] = true
+	return segs
+		
+		
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

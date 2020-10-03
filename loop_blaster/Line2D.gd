@@ -16,9 +16,7 @@ func _process(delta):
 		points[point] = origin[point] * distance + Vector2(off, off)
 		if point in weak_seg.keys():
 			$WeakSpot.points[weak_seg[point]] = origin[point] * distance + Vector2(off, off)
-		
-		
-		
+
 func init(var weak_segs):
 	distance = get_parent().max_width
 	origin = points
