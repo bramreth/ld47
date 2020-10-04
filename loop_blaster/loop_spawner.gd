@@ -4,6 +4,11 @@ var loops = []
 var loop = preload("res://loop.tscn")
 export(int) var segs
 
+var col1 = null
+var col2 = null
+
+var speed = null
+
 var easy_waves = [
 	{
 		"weak": 12,
@@ -23,14 +28,14 @@ var easy_waves = [
 
 var med_waves = [
 	{
-		"weak": 6,
+		"weak": 8,
 		"pattern": [
 			6, 0.7
 		],
 		"pause": 2.0
 	},
 	{
-		"weak": 8,
+		"weak": 6,
 		"pattern": [
 			8, 0.6
 		],
@@ -61,10 +66,12 @@ var current_wave = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	$loop_collision.set_segs(segs)
+	
 
 func spawn(weak):
 	var l = loop.instance()
+	l.speed = speed
+	l.set_cols(col1, col2)
 	l.weak_segments = weak
 	l.segments = segs
 	add_child(l)

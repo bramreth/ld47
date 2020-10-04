@@ -5,6 +5,21 @@ export(int) var max_width = 75
 export(int) var segments = 16
 export(int) var weak_segments = 4
 signal dead(this)
+var speed = 3
+
+func set_cols(c1, c2):
+	$Line2D.default_color = col_blast(c1)
+	$Line2D/WeakSpot.default_color = col_blast(c2)
+
+func col_blast(col):
+	var c = Color(col)
+	if c.r > 0.9:
+		c.r *= 2
+	if c.g > 0.9:
+		c.g *= 2
+	if c.b > 0.9:
+		c.b *= 2
+	return c
 
 func get_segs():
 #	var weak_segs = []
@@ -37,7 +52,7 @@ func create_loop():
 #func _process(delta):
 #	pass
 func start():
-	$CurveTween.play(3)
+	$CurveTween.play(speed)
 
 func _on_Button_pressed():
 	start()

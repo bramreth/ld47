@@ -6,6 +6,7 @@ export(Color) var bullet_color = Color("ee5253")
 export(float) var size = 5.0
 export(int) var detail = 32
 
+
 var direction:Vector2 = Vector2.ZERO
 
 
@@ -36,7 +37,9 @@ func _on_collision_area_entered(area:Area2D):
 		print("BANG", area.loop_ref)
 		
 		area.loop_ref.die(true)
+		get_parent().hit(global_position)
 		pass #COLOOSION GOES HERE, if you compare bullet_color to the line segment color you can check for hte right match as well
 	else:
 		area.loop_ref.dud()
+		get_parent().dud(global_position)
 	self.queue_free()
