@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://loop_collision.gd" type="Script" id=1]
 [ext_resource path="res://player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://sfx/todt.wav" type="AudioStream" id=9]
 [ext_resource path="res://sfx/death2.wav" type="AudioStream" id=10]
 [ext_resource path="res://insayne2.wav" type="AudioStream" id=11]
+[ext_resource path="res://option.tscn" type="PackedScene" id=12]
+[ext_resource path="res://sfx/reload.wav" type="AudioStream" id=13]
 
 [sub_resource type="Curve2D" id=11]
 _data = {
@@ -219,6 +221,9 @@ volume_db = 2.0
 stream = ExtResource( 10 )
 volume_db = -1.0
 
+[node name="AudioStreamSelect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+
 [node name="loop_spawner" type="Node2D" parent="."]
 position = Vector2( 512, 300 )
 script = ExtResource( 4 )
@@ -253,6 +258,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="level_select" type="Node2D" parent="."]
+
+[node name="option" parent="level_select" instance=ExtResource( 12 )]
+position = Vector2( 212, 124 )
+
+[node name="option2" parent="level_select" instance=ExtResource( 12 )]
+position = Vector2( 512, 84 )
+option_type = "Moebius"
+
+[node name="option3" parent="level_select" instance=ExtResource( 12 )]
+position = Vector2( 812, 124 )
+option_type = "Ouroboros"
+
 [node name="UI" type="Control" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
@@ -264,6 +282,7 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="UI"]
+visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -278,8 +297,12 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="UI"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -40.0
-margin_bottom = 40.0
+margin_left = -46.0
+margin_bottom = 68.0
+rect_min_size = Vector2( 46, 104 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/Panel"]
 margin_right = 40.0
@@ -289,14 +312,38 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="UI/Panel/VBoxContainer"]
-margin_right = 40.0
+margin_right = 41.0
 margin_bottom = 14.0
 text = "rings"
 
 [node name="count" type="Label" parent="UI/Panel/VBoxContainer"]
 margin_top = 18.0
-margin_right = 40.0
+margin_right = 41.0
 margin_bottom = 32.0
+text = "0"
+
+[node name="recordLabe" type="Label" parent="UI/Panel/VBoxContainer"]
+margin_top = 36.0
+margin_right = 41.0
+margin_bottom = 50.0
+text = "record"
+
+[node name="record" type="Label" parent="UI/Panel/VBoxContainer"]
+margin_top = 54.0
+margin_right = 41.0
+margin_bottom = 68.0
+text = "0"
+
+[node name="pointLabel" type="Label" parent="UI/Panel/VBoxContainer"]
+margin_top = 72.0
+margin_right = 41.0
+margin_bottom = 86.0
+text = "points"
+
+[node name="points" type="Label" parent="UI/Panel/VBoxContainer"]
+margin_top = 90.0
+margin_right = 41.0
+margin_bottom = 104.0
 text = "0"
 
 [node name="retry_box" type="Panel" parent="UI"]

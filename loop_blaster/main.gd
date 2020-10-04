@@ -8,22 +8,24 @@ var s1 = preload("res://insayne.wav")
 var s2 = preload("res://insayne2.wav")
 var s3 = preload("res://tensse.wav")
 
+var started = false
+
 var levels = {
-	"l1": {
+	"lv1": {
 		"sound": s2,
 		"color": "54a0ff",
 		"weak_color": "ff9ff3",
 		"speed": 4.0,
 		"segs": 12
 	},
-	"l2": {
+	"lv2": {
 		"sound": s3,
 		"color": "5f27cd",
 		"weak_color": "48dbfb",
 		"speed": 3.0,
 		"segs": 16
 	},
-	"l3": {
+	"lv3": {
 		"sound": s1,
 		"color": "feca57",
 		"weak_color": "ff6b6b",
@@ -46,8 +48,14 @@ func game_over():
 		$AudioStreamDeath.play()
 		$AudioStreamDeath2.play()
 		$death_anim/Particles2D.restart()
+		if kills > Manager.record:
+			Manager.record = kills
+			Manager.save()
+			$UI/Panel/VBoxContainer/record.text = str(Manager.record)
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$UI/Panel/VBoxContainer/record.text = str(Manager.record)
+#	setup_level("l3")
 	$bg/Label.text = str(health)
 	$bg/Label.text = str(health)
 	$transition/AnimationPlayer.play("fade_in")
@@ -62,6 +70,8 @@ func setup_level(type):
 	$loop_spawner.col1 = levels[type]["color"]
 	$loop_spawner.col2 = levels[type]["weak_color"]
 	$loop_spawner.speed = levels[type]["speed"]
+	$Player.set_col(levels[type]["weak_color"])
+	$loop_spawner/Timer.start()
 
 func add_kill():
 	kills += 1
@@ -79,8 +89,8 @@ func hit(gpos):
 	$particle_pool/hit.restart()
 
 func start_round():
-	setup_level("l2")
-	$loop_spawner/Timer.start()
+	pass
+	# stuff to do with starting the main menu
 
 func reset():
 	print("reset")
@@ -92,3 +102,16 @@ func _on_Button_pressed():
 
 func _on_Button2_pressed():
 	get_tree().quit()
+	
+func handle_option(area_in):
+	if started: return
+	print(area_in.name, "!")
+	setup_level(area_in.levels[area_in.option_type][0])
+	area_in.die()
+	$AudioStreamSelect.play()
+	started = true
+	for item in get_tree().get_nodes_in_group("option"):
+		yield(get_tree().create_timer(0.2), "timeout")
+		if item:
+			item.die()
+	

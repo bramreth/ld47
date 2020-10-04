@@ -51,6 +51,7 @@ config/icon="res://icon.png"
 [autoload]
 
 inputmanager="*res://inputmanager.gd"
+Manager="*res://global/manager.gd"
 
 [display]
 

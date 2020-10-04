@@ -1,12 +1,14 @@
 extends Line2D
 
 export(OpenSimplexNoise) var n
+
 var origin
 var time = 0
 var roc = 8
-var pulse_mag = 35
+export var pulse_mag = 35
 var weak_seg = {}
 export(int) var distance = 75
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	time += delta * roc

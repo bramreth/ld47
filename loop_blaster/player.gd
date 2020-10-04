@@ -26,10 +26,12 @@ func _physics_process(delta):
 func _input(event):
 	if event.is_action_pressed("shoot"):
 		shoot()
-	if event.is_action_pressed("swap_bullet"):
-		current_bullet_selection = (current_bullet_selection + 1) % bullets.size()
-		$Polygon2D/current_color.color = bullets[current_bullet_selection]
+#	if event.is_action_pressed("swap_bullet"):
+#		current_bullet_selection = (current_bullet_selection + 1) % bullets.size()
+#		$Polygon2D/current_color.color = bullets[current_bullet_selection]
 
+func set_col(c):
+	$Polygon2D/current_color.color = Color(c)
 
 func reload_done():
 	can_shoot = true
@@ -38,7 +40,7 @@ func shoot():
 	if can_shoot:
 		$AudioStreamPlayer.play()
 		var s = shot_particles.instance()
-		s.col = bullets[current_bullet_selection]
+		s.col = $Polygon2D/current_color.color
 		s.dir = self.global_position.direction_to($Polygon2D.global_position).normalized()
 		get_parent().add_child(s)
 		s.global_position = $Polygon2D/bullet_spawn.global_position
@@ -46,7 +48,7 @@ func shoot():
 		$AnimationPlayer.play("knockback")
 		
 		var b = bullet.instance()
-		b.bullet_color = bullets[current_bullet_selection]
+		b.bullet_color = $Polygon2D/current_color.color
 		get_parent().add_child(b)
 		b.global_position = $Polygon2D/bullet_spawn.global_position
 		b.shoot(self.global_position.direction_to($Polygon2D.global_position).normalized())
