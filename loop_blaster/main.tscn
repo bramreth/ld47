@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://loop_collision.gd" type="Script" id=1]
 [ext_resource path="res://player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,29 @@
 [ext_resource path="res://sfx/Hit_Hurt65.wav" type="AudioStream" id=8]
 [ext_resource path="res://sfx/todt.wav" type="AudioStream" id=9]
 [ext_resource path="res://sfx/death2.wav" type="AudioStream" id=10]
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 1 ), 0.0, 2.30781, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=10]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 400.0
+initial_velocity_random = 0.6
+angular_velocity = 200.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 100.0
+angle = 360.0
+angle_random = 1.0
+scale = 20.0
+scale_curve = SubResource( 9 )
+color = Color( 0.113725, 0.819608, 0.631373, 1 )
 
 [sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
@@ -165,6 +188,17 @@ __meta__ = {
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 512, 300 )
 rotation_speed = 0.05
+
+[node name="death_anim" type="Node2D" parent="."]
+position = Vector2( 512, 300 )
+
+[node name="Particles2D" type="Particles2D" parent="death_anim"]
+emitting = false
+amount = 32
+lifetime = 4.0
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 10 )
 
 [node name="AudioStreamDeath" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )

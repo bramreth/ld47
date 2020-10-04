@@ -17,6 +17,7 @@ func game_over():
 		$UI/retry_box/AnimationPlayer.play("retry")
 		$AudioStreamDeath.play()
 		$AudioStreamDeath2.play()
+		$death_anim/Particles2D.restart()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$bg/Label.text = str(health)
