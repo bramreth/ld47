@@ -45,6 +45,8 @@ angle_random = 1.0
 scale = 88.0
 scale_random = 0.8
 scale_curve = SubResource( 3 )
+hue_variation = 0.06
+hue_variation_random = 1.0
 
 [sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 1 ), 0.0, 2.30781, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]

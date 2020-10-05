@@ -109,6 +109,7 @@ func _ready():
 func setup_level(type):
 	print(levels[type])
 	$wave_label.col = levels[type]["color"]
+	$bg/Particles2D3.process_material.color = levels[type]["color"]
 	$AudioStreamPlayer.stream = levels[type]["sound"]
 	$AudioStreamPlayer.play()
 	$loop_spawner.segs = levels[type]["segs"]
