@@ -23,7 +23,7 @@ var weapon_shotty = {
 	'bullet': preload("res://shottybullet.tscn"),
 	'shots': 6,
 	'spread': 0.5,
-	'pitch': 0.
+	'pitch': 0.0
 }
 
 var levels = {
