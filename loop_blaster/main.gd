@@ -20,8 +20,8 @@ var weapon_normal = {
 var weapon_shotty = {
 	'shoot_speed': 0.3,
 	'bullet': preload("res://shottybullet.tscn"),
-	'shots': 10,
-	'spread': 0.4
+	'shots': 6,
+	'spread': 0.5
 }
 
 var levels = {

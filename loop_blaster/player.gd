@@ -10,20 +10,7 @@ var spread = 0
 #var bullets:Array = [Color("ee5253"), Color("2e86de"), Color("f368e0")]
 #var current_bullet_selection = 0
 
-var weapons:Array = [
-	{
-		'shoot_speed': 0.5,
-		'bullet': preload("res://bullet.tscn"),
-		'shots': 1,
-		'spread': 0
-	},
-	{
-		'shoot_speed': 0.3,
-		'bullet': preload("res://shottybullet.tscn"),
-		'shots': 10,
-		'spread': 0.4
-	},
-]
+var weapons:Array = []
 var current_weapon:int = 0
 
 var bullet:PackedScene = preload("res://bullet.tscn")
@@ -31,7 +18,6 @@ var shot_particles:PackedScene = preload("res://shotparticle.tscn")
 
 func _ready():
 	$reload_visualiser.connect("reload_done", self, "reload_done")
-	set_weapon()
 
 
 func _physics_process(delta):
