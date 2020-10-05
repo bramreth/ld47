@@ -55,6 +55,7 @@ Manager="*res://global/manager.gd"
 
 [display]
 
+window/size/height=1024
 window/size/resizable=false
 window/stretch/mode="viewport"
 

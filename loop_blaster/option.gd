@@ -33,7 +33,7 @@ func die():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	assert(option_type in levels.keys(), "invalid option type")
+	assert(option_type in levels.keys(), "invald option type")
 	randomize()
 	create_loop()
 	$Line2D.default_color = col_blast(levels[option_type][1])
