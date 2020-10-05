@@ -38,7 +38,7 @@ var levels = {
 		"weak_color": "ff9ff3",
 		"speed": 4.0,
 		"segs": 12,
-		'weapons': [weapon_normal]
+		'weapons': [weapon_normal, weapon_shotty]
 	},
 	"lv2": {
 		"sound": s3,
@@ -46,7 +46,7 @@ var levels = {
 		"weak_color": "48dbfb",
 		"speed": 3.0,
 		"segs": 16,
-		'weapons': [weapon_normal]
+		'weapons': [weapon_normal, weapon_shotty]
 	},
 	"lv3": {
 		"sound": s1,
@@ -106,9 +106,9 @@ func _ready():
 	$transition/AnimationPlayer.play("fade_in")
 	$level_select/AnimationPlayer.play("start")
 	$UI/RichTextLabel.set_credits(Manager.credits)	
+	update_prices()
 	
 func setup_level(type):
-	print(levels[type])
 	$wave_label.col = levels[type]["color"]
 	$bg/Particles2D3.process_material.color = levels[type]["color"]
 	$AudioStreamPlayer.stream = levels[type]["sound"]
@@ -136,7 +136,7 @@ func add_kill():
 	if c: 
 		$Player.credit()
 		$UI/RichTextLabel.set_credits(Manager.credits)	
-		$UI/score.set_score(kills, Manager.get_credit(cur_lv))
+	$UI/score.set_score(kills, Manager.get_credit(cur_lv))
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -155,7 +155,6 @@ func start_round():
 	# stuff to do with starting the main menu
 
 func reset():
-	print("reset")
 	get_tree().reload_current_scene()
 
 func _on_Button_pressed():
@@ -167,7 +166,6 @@ func _on_Button2_pressed():
 	
 func handle_option(area_in):
 	if started: return
-	print(area_in.name, "!")
 	var levels = ["option", "option2", "option3"]
 	
 	if levels.find(area_in.name) != -1:
@@ -187,6 +185,17 @@ func handle_option(area_in):
 		if upgrade_amount:
 			area_in.update_rec(upgrade_amount)
 	
+func update_prices():
+	$upgrades/option_reload_time/Label2.text = str(Manager.r + 1) + " credits"
+	$upgrades/option_bullet_speed/Label3.text = str(Manager.s + 1) + " credits"
+	if Manager.r >= 5: 
+		$upgrades/option_reload_time/Label2.visible = false
+	if Manager.s >= 5: 
+		$upgrades/option_bullet_speed/Label3.visible = false
+	if Manager.auto:
+		$upgrades/option_c/Label4.text = "hold left click"
+	if Manager.shot:
+		$upgrades/option_d2/Label5.text = "right click to swap gun"
 
 func upgrade(type):
 	if type =="reload" and Manager.r < 5 and Manager.credits >= Manager.r + 1:
@@ -194,24 +203,29 @@ func upgrade(type):
 		Manager.credits -= Manager.r
 		Manager.save()
 		$UI/RichTextLabel.set_credits(Manager.credits)	
+		update_prices()
 		return Manager.r
 	elif type == "bullet" and Manager.s < 5 and Manager.credits >= Manager.s + 1:
 		Manager.s += 1
 		Manager.credits -=  Manager.s
 		Manager.save()
 		$UI/RichTextLabel.set_credits(Manager.credits)	
+		update_prices()
 		return  Manager.s
 	elif type == "auto" and Manager.credits >= 5:
 		Manager.credits -= 5
 		Manager.auto = true
 		Manager.save()
 		$UI/RichTextLabel.set_credits(Manager.credits)	
+		update_prices()
 		return true
 	elif type == "shot" and Manager.credits >= 4:
 		Manager.credits -= 4
 		Manager.shot = true
 		Manager.save()
+		$Player.check_gun()
 		$UI/RichTextLabel.set_credits(Manager.credits)	
+		update_prices()
 		return true
 	
 	return 0

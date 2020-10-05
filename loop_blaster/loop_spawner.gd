@@ -105,7 +105,6 @@ func load_waves():
 	else:
 		waves.push_back(easy_waves[randi()%len(easy_waves)])
 	counter += 1
-	print(counter)
 
 func start_wave():
 	if waves.empty(): load_waves()
@@ -113,7 +112,6 @@ func start_wave():
 	for i in w["pattern"][0]:
 		current_wave.append([w["weak"], w["pattern"][1]])
 	current_wave.append(w["pause"])
-	print(current_wave)
 
 var first_loop:bool = true
 

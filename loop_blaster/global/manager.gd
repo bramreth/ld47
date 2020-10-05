@@ -7,7 +7,7 @@ var l3_record = 0
 var auto = false
 var r = 0
 var s = 0
-
+var shot = false
 var credits = 0
 
 var credit_list = [
@@ -19,7 +19,7 @@ var credit_list = [
 	125,
 	150,
 	200,
-	300,
+	250,
 	INF
 ]
 
@@ -48,9 +48,11 @@ func win_lv(lv):
 		credits += 5
 
 func get_credit(cur_lv):
+	if creds_obj[cur_lv] > 9: return INF
 	return credit_list[creds_obj[cur_lv]]
 
 func check_credit(k, cur_lv):
+	if creds_obj[cur_lv] > 9: return false
 	if k >= credit_list[creds_obj[cur_lv]]:
 		credits += 1
 		creds_obj[cur_lv] += 1
@@ -77,6 +79,7 @@ func save():
 		"credits": credits,
 		"r": r,
 		"s": s,
+		"shot": shot,
 	}
 	var save_game = File.new()
 	save_game.open("user://savegame.save", File.WRITE)
@@ -104,6 +107,8 @@ func load_game():
 				r = current_line["r"]
 			if current_line.has("s"):
 				s = current_line["s"]
+			if current_line.has("shot"):
+				shot = current_line["shot"]
 			if current_line.has("credits"):
 				credits = current_line["credits"]
 			if current_line.has("obj1"):

@@ -20,6 +20,7 @@ var bullet:PackedScene = preload("res://bullet.tscn")
 var shot_particles:PackedScene = preload("res://shotparticle.tscn")
 
 func _ready():
+	check_gun()
 	$reload_visualiser.connect("reload_done", self, "reload_done")
 
 
@@ -36,11 +37,15 @@ func _input(event):
 		shoot()
 		if Manager.auto:
 			auto = true
-	if event.is_action_pressed("swap_bullet"):
+	if event.is_action_pressed("swap_bullet") and Manager.shot:
+		check_gun()
 		change_weapon()
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and not event.pressed:
 			auto = false
+
+func check_gun():
+	$bullet_indicator.visible = Manager.shot
 
 func change_weapon():
 	current_weapon = (current_weapon + 1) % weapons.size()

@@ -13,7 +13,8 @@ var levels = {
 	"Ouroboros": ["lv3", "ff6b6b"],
 	"Upgrade Bullet": ["shop", "ffffff"],
 	"Upgrade Reload": ["shop", "ffffff"],
-	"Automatic": ["shop", "ffffff"]
+	"Automatic": ["shop", "ffffff"],
+	"Shotgun": ["shop", "ffffff"]
 }
 
 func update_record():
@@ -39,7 +40,9 @@ func update_record():
 			if option_type == "Upgrade Bullet": 
 				$Control/VBoxContainer/rec.text = String(Manager.s)
 			if option_type == "Upgrade Reload": 
-				$Control/VBoxContainer/rec.text = String(Manager.r)	
+				$Control/VBoxContainer/rec.text = String(Manager.r)
+			if option_type == "Shotgun": 
+				$Control/VBoxContainer/rec.text = String(Manager.shot)	
 	$Label.visible = not ($Label.text == "x/10")
 #	$Control/VBoxContainer/rec.text = str(level)
 
@@ -48,6 +51,7 @@ func invis():
 	$Line2D.visible = false
 	$Control/VBoxContainer.visible = false
 	$Label.visible = false
+	$Sprite.visible = false
 
 func die():
 	$AnimationPlayer.play("pop")
@@ -72,6 +76,9 @@ func _ready():
 	if option_name == "Automatic": 
 		option_name ="Automatic"
 		upgrade_type = 'auto'
+	if option_name == "Shotgun": 
+		option_name ="Shotgun"
+		upgrade_type = 'shot'
 
 	$Control/VBoxContainer/Label.text = option_name
 	$Line2D.init(12)
@@ -101,5 +108,4 @@ func _process(delta):
 
 
 func update_rec(num):
-	print(num)
 	$Control/VBoxContainer/rec.text = String(num)
