@@ -3,7 +3,7 @@
 [ext_resource path="res://impact.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://wave_label.gd" type="Script" id=2]
 
-[sub_resource type="DynamicFont" id=13]
+[sub_resource type="DynamicFont" id=1]
 size = 32
 font_data = ExtResource( 1 )
 
@@ -26,7 +26,7 @@ margin_left = -100.0
 margin_top = -100.0
 margin_right = 100.0
 rect_min_size = Vector2( 200, 100 )
-custom_fonts/font = SubResource( 13 )
+custom_fonts/font = SubResource( 1 )
 text = "Wave 1"
 align = 1
 valign = 1

@@ -72,6 +72,10 @@ func reload_done():
 		forgive = false
 		shoot()
 
+func credit():
+	$credit.restart()
+	$credit/AudioStreamPlayer.play()
+
 func shoot():
 	if can_shoot:
 		$AudioStreamPlayer.play()

@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://reload_visualiser.gd" type="Script" id=2]
 [ext_resource path="res://sfx/Laser_Shoot41.wav" type="AudioStream" id=3]
 [ext_resource path="res://sfx/select_sweet.wav" type="AudioStream" id=4]
+[ext_resource path="res://credit.png" type="Texture" id=5]
+[ext_resource path="res://sfx/credit.wav" type="AudioStream" id=6]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.933333, 0.321569, 0.32549, 0, 0.933333, 0.321569, 0.32549, 1 )
@@ -36,6 +38,21 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1.5, 0.6 ), Vector2( 1, 1 ) ]
 }
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.0440252, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.6986, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+gravity = Vector3( 0, 100, 0 )
+initial_velocity = 250.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 4 )
 
 [node name="Player" type="Node2D"]
 script = ExtResource( 1 )
@@ -106,4 +123,18 @@ pitch_scale = 2.0
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="credit" type="Particles2D" parent="."]
+emitting = false
+amount = 1
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+process_material = SubResource( 5 )
+texture = ExtResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="credit"]
+stream = ExtResource( 6 )
+volume_db = 3.0
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -99,13 +99,12 @@ func _ready():
 	$Player.weapons = [weapon_normal, weapon_shotty]
 	$Player.current_weapon = 0
 	$Player.set_weapon()
-	$UI/Panel/VBoxContainer/record.text = str(Manager.record)
 #	setup_level("l3")
 	$bg/Label.text = str(health)
 	$bg/Label.text = str(health)
 	$transition/AnimationPlayer.play("fade_in")
 	$level_select/AnimationPlayer.play("start")
-	
+	$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
 	
 func setup_level(type):
 	print(levels[type])
@@ -125,10 +124,17 @@ func setup_level(type):
 	$loop_spawner.start_wave()
 	$loop_spawner/Timer.start()
 	cur_lv = type
+	$UI/Panel/VBoxContainer/obj.text = str(Manager.get_credit(cur_lv))
 
 func add_kill():
 	kills += 1
 	$UI/Panel/VBoxContainer/count.text = str(kills)
+	var c = Manager.check_credit(kills, cur_lv)
+	if c: 
+		$Player.credit()
+		$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
+	$UI/Panel/VBoxContainer/obj.text = str(Manager.get_credit(cur_lv))
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -181,20 +187,23 @@ func handle_option(area_in):
 	
 
 func upgrade(type):
-	if type =="reload" and Manager.r < 5 and money >= Manager.r + 1:
+	if type =="reload" and Manager.r < 5 and Manager.credits >= Manager.r + 1:
 		Manager.r += 1
-		money -= Manager.r
+		Manager.credits -= Manager.r
 		Manager.save()
+		$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
 		return Manager.r
-	elif type == "bullet" and Manager.s < 5 and money >= Manager.s + 1:
+	elif type == "bullet" and Manager.s < 5 and Manager.credits >= Manager.s + 1:
 		Manager.s += 1
-		money -=  Manager.s
+		Manager.credits -=  Manager.s
 		Manager.save()
+		$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
 		return  Manager.s
-	elif type == "auto" and money >= 10:
-		money -= 10
+	elif type == "auto" and Manager.credits >= 10:
+		Manager.credits -= 10
 		Manager.auto = true
 		Manager.save()
+		$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
 		return true
 	
 	return 0
