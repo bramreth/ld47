@@ -12,14 +12,17 @@ func update_shape(v1, v2):
 
 
 func _on_Area2D_area_entered(area):
-	if not area.name.match("*seg*"):
-		print(area.name)
+	pass
+#	if not area.name.match("*seg*"):
+#		print(area.name)
 
 
 func _on_seg_area_shape_entered(area_id, area, area_shape, self_shape):
-	if not area.name.match("*seg*"):
-		print(area.name)
+	pass
+#	if not area.name.match("*seg*"):
+#		print(area.name)
 
 
 func _on_seg_body_entered(body):
-	print(body)
+	pass
+#	print(body)

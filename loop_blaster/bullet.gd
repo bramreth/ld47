@@ -37,7 +37,8 @@ func _on_collision_area_entered(area:Area2D):
 		get_parent().handle_option(area)
 		get_parent().hit(global_position)
 	else:
-		if not area.loop_ref: return
+		var wr = weakref(area.loop_ref)
+		if not wr.get_ref(): return
 		if area.get_weak():
 			area.loop_ref.die(true)
 			get_parent().hit(global_position)

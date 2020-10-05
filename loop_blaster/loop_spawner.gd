@@ -1,5 +1,7 @@
 extends Node2D
 
+signal wave_started(num)
+
 var loops = []
 var loop = preload("res://loop.tscn")
 export(int) var segs
@@ -15,14 +17,14 @@ var easy_waves = [
 		"pattern": [
 			4, 0.8
 		],
-		"pause": 3.0
+		"pause": 2.0
 	},
 	{
 		"weak": 10,
 		"pattern": [
 			8, 1
 		],
-		"pause": 3.0
+		"pause": 2.0
 	},
 ]
 
@@ -32,14 +34,14 @@ var med_waves = [
 		"pattern": [
 			6, 0.7
 		],
-		"pause": 2.0
+		"pause": 1.5
 	},
 	{
 		"weak": 6,
 		"pattern": [
 			8, 0.6
 		],
-		"pause": 2.0
+		"pause": 1.5
 	},
 ]
 
@@ -66,7 +68,7 @@ var current_wave = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	
+
 
 func spawn(weak):
 	var l = loop.instance()
@@ -90,29 +92,30 @@ func replace_loop(lp, shot):
 	else: 
 		get_parent().damage_player()
 	loops.remove(loops.find(lp))
-	if loops:
+	if loops.size() > 0:
 		$loop_collision.active_loop(loops[0])
 	
 var counter = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if waves.empty() and current_wave.empty():
-		if counter > 8:
-			waves.push_back(hard_waves[randi()%len(hard_waves)])
-		elif counter > 4:
-			waves.push_back(med_waves[randi()%len(med_waves)])
-		else:
-			waves.push_back(easy_waves[randi()%len(easy_waves)])
-		counter += 1
-		print(counter)
-		start_wave()
+func load_waves():
+	if counter > 8:
+		waves.push_back(hard_waves[randi()%len(hard_waves)])
+	elif counter > 4:
+		waves.push_back(med_waves[randi()%len(med_waves)])
+	else:
+		waves.push_back(easy_waves[randi()%len(easy_waves)])
+	counter += 1
+	print(counter)
 
 func start_wave():
+	if waves.empty(): load_waves()
 	var w = waves.pop_front()
 	for i in w["pattern"][0]:
 		current_wave.append([w["weak"], w["pattern"][1]])
 	current_wave.append(w["pause"])
 	print(current_wave)
+
+var first_loop:bool = true
 
 
 func _on_Timer_timeout():
@@ -121,7 +124,16 @@ func _on_Timer_timeout():
 		if w is Array:
 			$Timer.wait_time = w[1]
 			spawn(w[0])
-			
+			if first_loop: 
+
+				first_loop = false
+				if counter != 1:
+					yield(get_tree().create_timer(speed),"timeout")
+				emit_signal('wave_started', counter)
+				
+				
 			if len(current_wave) <= 1:
 				w = current_wave.pop_front()
 				$Timer.wait_time = w
+				start_wave()
+				first_loop = true
