@@ -88,6 +88,7 @@ func update_records():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	update_records()
+	$loop_spawner.connect("wave_started", $wave_label, 'show_wave')
 	$Player.weapons = [weapon_normal]
 	$Player.current_weapon = 0
 	$Player.set_weapon()
@@ -101,6 +102,7 @@ func _ready():
 	
 func setup_level(type):
 	print(levels[type])
+	$wave_label.col = levels[type]["color"]
 	$AudioStreamPlayer.stream = levels[type]["sound"]
 	$AudioStreamPlayer.play()
 	$loop_spawner.segs = levels[type]["segs"]
@@ -112,6 +114,8 @@ func setup_level(type):
 	$Player.weapons = levels[type]["weapons"]
 	$Player.current_weapon = 0
 	$Player.set_weapon()
+	$loop_spawner.load_waves()
+	$loop_spawner.start_wave()
 	$loop_spawner/Timer.start()
 	cur_lv = type
 
@@ -152,7 +156,9 @@ func handle_option(area_in):
 	area_in.die()
 	$AudioStreamSelect.play()
 	started = true
-	for item in get_tree().get_nodes_in_group("option"):
+	var other_items = get_tree().get_nodes_in_group("option")
+	other_items.remove(other_items.find(area_in))
+	for item in other_items:
 		yield(get_tree().create_timer(0.2), "timeout")
 		if item:
 			item.die()

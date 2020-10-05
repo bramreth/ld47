@@ -27,7 +27,8 @@ func setup_seglist():
 
 		
 func update_collision():
-	if active:
+	var wr = weakref(active)
+	if wr.get_ref():
 		var ls = seg_list if list_a else seg_list_2
 		list_a = not list_a
 		var update_dat = active.get_segs()
@@ -39,7 +40,8 @@ func update_collision():
 			counter += 1
 			
 func init_collision():
-	if active:
+	var wr = weakref(active)
+	if wr.get_ref():
 		var update_dat = active.get_segs()
 		var counter = 0
 		for k in update_dat.keys():
@@ -53,10 +55,8 @@ func init_collision():
 			seg_list_2[counter].update_shape(k[0], k[1])
 			seg_list_2[counter].weak = update_dat[k]
 			counter += 1
-		
-			
-		
-func _process(delta):
+
+func _physics_process(delta):
 	update_collision()
 	
 

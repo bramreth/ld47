@@ -90,9 +90,7 @@ func shoot():
 			b.bullet_color = $Polygon2D/current_color.color
 			get_parent().add_child(b)
 			b.global_position = $Polygon2D/bullet_spawn.global_position
-			print($Polygon2D/bullet_spawn.global_position)
 			var shot_angle = global_position.angle_to_point($Polygon2D/bullet_spawn.global_position)
-			print(shot_angle)
 			shot_angle += rand_range(-spread, spread)
 			var shot_direction = -Vector2(cos(shot_angle), sin(shot_angle)).normalized()
 #			var shot_direction = self.global_position.direction_to($Polygon2D.global_position).normalized()
