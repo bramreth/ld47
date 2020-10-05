@@ -20,19 +20,19 @@ _data = {
 "points": PoolVector2Array( 0.5, 64.5, -0.5, -64.5, 128, 320, -64, -0.5, 64, 0.5, 256, 192, -62, -61, 62, 61, 512, 320, -64, -1, 64, 1, 768, 384, 0.5, 63, -0.5, -63, 896, 320, 65, 0, -65, 0, 768, 192, 65.5, -63.5, -65.5, 63.5, 512, 320, 64, -1.5, -64, 1.5, 256, 384, -0.5, 62.5, 0.5, -62.5, 128, 320 )
 }
 
-[sub_resource type="ParticlesMaterial" id=13]
+[sub_resource type="ParticlesMaterial" id=2]
 flag_disable_z = true
 gravity = Vector3( 0, 98, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
-[sub_resource type="Curve" id=2]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 2.30781, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=3]
-curve = SubResource( 2 )
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=5]
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
@@ -46,10 +46,10 @@ damping = 100.0
 angle = 360.0
 angle_random = 1.0
 scale = 20.0
-scale_curve = SubResource( 3 )
+scale_curve = SubResource( 4 )
 color = Color( 0.113725, 0.819608, 0.631373, 1 )
 
-[sub_resource type="Shader" id=5]
+[sub_resource type="Shader" id=6]
 code = "shader_type canvas_item;
 uniform vec2 target = vec2(0.5f);
 uniform float intensity: hint_range(0f, 1f);
@@ -59,12 +59,12 @@ void fragment(){
 }"
 custom_defines = ""
 
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
 shader_param/target = Vector2( 0.5, 0.5 )
 shader_param/intensity = 0.75
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=8]
 resource_name = "start"
 length = 0.8
 tracks/0/type = "value"
@@ -152,7 +152,7 @@ tracks/6/keys = {
 "values": [ true, true, true ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_position")
@@ -179,7 +179,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="Shader" id=10]
 code = "shader_type canvas_item;
 uniform float wipe: hint_range(0f, 1f);
 
@@ -188,12 +188,12 @@ void fragment(){
 }"
 custom_defines = ""
 
-[sub_resource type="ShaderMaterial" id=9]
+[sub_resource type="ShaderMaterial" id=11]
 resource_local_to_scene = true
-shader = SubResource( 8 )
+shader = SubResource( 10 )
 shader_param/wipe = 1.0
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=12]
 tracks/0/type = "value"
 tracks/0/path = NodePath("ColorRect:material:shader_param/wipe")
 tracks/0/interp = 1
@@ -221,7 +221,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=13]
 length = 0.15
 step = 0.01
 tracks/0/type = "method"
@@ -291,7 +291,7 @@ __meta__ = {
 }
 
 [node name="Particles2D" type="Particles2D" parent="bg"]
-process_material = SubResource( 13 )
+process_material = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 512, 300 )
@@ -306,7 +306,7 @@ amount = 32
 lifetime = 4.0
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 4 )
+process_material = SubResource( 5 )
 
 [node name="AudioStreamDeath" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
@@ -345,7 +345,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="postprocess"]
-material = SubResource( 6 )
+material = SubResource( 7 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -367,7 +367,7 @@ position = Vector2( 812, 124 )
 option_type = "Ouroboros"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="level_select"]
-anims/start = SubResource( 12 )
+anims/start = SubResource( 8 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="level_select"]
 stream = ExtResource( 14 )
@@ -498,7 +498,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/retry_box"]
-anims/retry = SubResource( 7 )
+anims/retry = SubResource( 9 )
 
 [node name="transition" type="Control" parent="."]
 visible = false
@@ -511,7 +511,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="transition"]
-material = SubResource( 9 )
+material = SubResource( 11 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -520,8 +520,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="transition"]
-anims/fade_in = SubResource( 10 )
-anims/fade_out = SubResource( 11 )
+anims/fade_in = SubResource( 12 )
+anims/fade_out = SubResource( 13 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )

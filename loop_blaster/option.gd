@@ -26,7 +26,7 @@ func update_record():
 func invis():
 	$Polygon2D.visible = false
 	$Line2D.visible = false
-	$Control/VBoxContainer/Label.visible = false
+	$Control/VBoxContainer.visible = false
 
 func die():
 	$AnimationPlayer.play("pop")
@@ -40,6 +40,7 @@ func _ready():
 	$Control/VBoxContainer/Label.text = option_type
 	$Line2D.init(12)
 	$Line2D.n.seed = randi()
+	update_record()
 	
 func col_blast(col):
 	var c = Color(col)

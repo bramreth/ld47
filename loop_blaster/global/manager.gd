@@ -29,9 +29,9 @@ func load_game():
 		var current_line = parse_json(save_game.get_line())
 		if current_line is Dictionary:
 			if current_line.has("l1_record"):
-				record = current_line["l1_record"]
+				l1_record = current_line["l1_record"]
 			if current_line.has("l2_record"):
-				record = current_line["l2_record"]
+				l2_record = current_line["l2_record"]
 			if current_line.has("l3_record"):
-				record = current_line["l3_record"]
+				l3_record = current_line["l3_record"]
 	save_game.close()
