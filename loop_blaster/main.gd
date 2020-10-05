@@ -68,6 +68,7 @@ func damage_player():
 		
 func game_over():
 	if $Player:
+		$Camera2D.add_trauma(1)
 		$Player.queue_free()
 		$AudioStreamDeath.play()
 		$AudioStreamDeath2.play()
@@ -128,12 +129,14 @@ func setup_level(type):
 	$UI/score.set_score(0, Manager.get_credit(cur_lv))
 
 func add_kill():
+	$Camera2D.add_trauma(0.25)
 	kills += 1
-	$UI/score.set_score(kills, Manager.get_credit(cur_lv))
+	
 	var c = Manager.check_credit(kills, cur_lv)
 	if c: 
 		$Player.credit()
 		$UI/RichTextLabel.set_credits(Manager.credits)	
+		$UI/score.set_score(kills, Manager.get_credit(cur_lv))
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -198,11 +201,27 @@ func upgrade(type):
 		Manager.save()
 		$UI/RichTextLabel.set_credits(Manager.credits)	
 		return  Manager.s
-	elif type == "auto" and Manager.credits >= 15:
-		Manager.credits -= 15
+	elif type == "auto" and Manager.credits >= 5:
+		Manager.credits -= 5
 		Manager.auto = true
+		Manager.save()
+		$UI/RichTextLabel.set_credits(Manager.credits)	
+		return true
+	elif type == "shot" and Manager.credits >= 4:
+		Manager.credits -= 4
+		Manager.shot = true
 		Manager.save()
 		$UI/RichTextLabel.set_credits(Manager.credits)	
 		return true
 	
 	return 0
+
+
+func _on_AudioStreamPlayer_finished():
+	pass # Replace with function body.
+	print("you win!")
+	$loop_spawner.queue_free()
+	Manager.win_lv(cur_lv)
+	$UI/RichTextLabel.set_credits(Manager.credits)	
+	reset()
+	#win

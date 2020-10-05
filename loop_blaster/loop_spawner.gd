@@ -98,9 +98,9 @@ func replace_loop(lp, shot):
 var counter = 0
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func load_waves():
-	if counter > 8:
+	if counter > 20:
 		waves.push_back(hard_waves[randi()%len(hard_waves)])
-	elif counter > 4:
+	elif counter > 10:
 		waves.push_back(med_waves[randi()%len(med_waves)])
 	else:
 		waves.push_back(easy_waves[randi()%len(easy_waves)])

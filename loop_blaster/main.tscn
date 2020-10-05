@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://loop_collision.gd" type="Script" id=1]
 [ext_resource path="res://player.tscn" type="PackedScene" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://p1.tscn" type="PackedScene" id=17]
 [ext_resource path="res://impact.ttf" type="DynamicFontData" id=18]
 [ext_resource path="res://RichTextLabel.gd" type="Script" id=19]
+[ext_resource path="res://juicy_cam/juicy_cam.tscn" type="PackedScene" id=20]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -330,9 +331,11 @@ script = ExtResource( 5 )
 [node name="bg" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1024.0
-margin_bottom = 1024.0
-rect_min_size = Vector2( 1024, 1024 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 924.0
+margin_bottom = 924.0
+rect_min_size = Vector2( 1224, 1224 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -442,9 +445,11 @@ stream = ExtResource( 8 )
 [node name="postprocess" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1024.0
-margin_bottom = 1024.0
-rect_min_size = Vector2( 1024, 1024 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 924.0
+margin_bottom = 924.0
+rect_min_size = Vector2( 1224, 1224 )
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -544,10 +549,11 @@ __meta__ = {
 }
 
 [node name="transition" type="Control" parent="."]
-visible = false
-margin_right = 1024.0
-margin_bottom = 1024.0
-rect_min_size = Vector2( 1024, 1024 )
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 924.0
+margin_bottom = 924.0
+rect_min_size = Vector2( 1224, 1224 )
 mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -577,5 +583,15 @@ environment = ExtResource( 7 )
 [node name="wave_label" parent="." instance=ExtResource( 15 )]
 margin_right = 1024.0
 margin_bottom = 600.0
+
+[node name="Camera2D" parent="." groups=[
+"cam",
+] instance=ExtResource( 20 )]
+position = Vector2( 512, 512 )
+max_x = 50
+max_y = 50
+max_r = 5
+decay = 0.7
 [connection signal="timeout" from="loop_spawner/Timer" to="loop_spawner" method="_on_Timer_timeout"]
 [connection signal="pressed" from="UI/Button" to="UI" method="change_input_method"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

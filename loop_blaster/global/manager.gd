@@ -16,19 +16,36 @@ var credit_list = [
 	50,
 	75,
 	100,
+	125,
+	150,
 	200,
 	300,
-	400,
-	500,
-	600,
 	INF
 ]
+
+#var credit_list = [
+#	1,
+#	2,
+#	3,
+#	4,
+#	5,
+#	6,
+#	7,
+#	8,
+#	9,
+#	INF
+#]
 
 var creds_obj = {
 	"lv1": 0,
 	"lv2": 0,
 	"lv3": 0
 }
+	
+func win_lv(lv):
+	if credit_list[creds_obj[lv]] == INF:
+		creds_obj[lv] += 1
+		credits += 5
 
 func get_credit(cur_lv):
 	return credit_list[creds_obj[cur_lv]]

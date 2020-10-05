@@ -51,6 +51,7 @@ func invis():
 
 func die():
 	$AnimationPlayer.play("pop")
+	get_tree().get_nodes_in_group("cam")[0].add_trauma(0.3)
 
 func die_but_not_really():
 	$AnimationPlayer.play("pop2")
