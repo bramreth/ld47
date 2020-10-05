@@ -44,6 +44,7 @@ func set_weapon():
 	shoot_speed = weapons[current_weapon]['shoot_speed']
 	shots = weapons[current_weapon]['shots']
 	spread = weapons[current_weapon]['spread']
+	$AudioStreamPlayer.pitch_scale = weapons[current_weapon]['pitch']
 	
 	for child in $bullet_indicator.get_children():
 		child.queue_free()
