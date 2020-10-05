@@ -14,14 +14,16 @@ var weapon_normal = {
 	'shoot_speed': 0.5,
 	'bullet': preload("res://bullet.tscn"),
 	'shots': 1,
-	'spread': 0
+	'spread': 0,
+	'pitch': 3.0
 }
 
 var weapon_shotty = {
 	'shoot_speed': 0.3,
 	'bullet': preload("res://shottybullet.tscn"),
 	'shots': 6,
-	'spread': 0.5
+	'spread': 0.5,
+	'pitch': 0.
 }
 
 var levels = {
