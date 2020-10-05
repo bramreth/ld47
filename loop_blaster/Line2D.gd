@@ -23,7 +23,7 @@ func init(var weak_segs):
 	distance = get_parent().max_width
 	origin = points
 	randomize()
-	var start = randi()%get_point_count()
+	var start = 1 + (randi()%(get_point_count()-2))
 	for i in range(weak_segs):
 		var p = (start + i) % get_point_count()
 		weak_seg[p] = i
