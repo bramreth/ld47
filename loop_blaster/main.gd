@@ -10,27 +10,44 @@ var s3 = preload("res://tensse.wav")
 
 var started = false
 
+var weapon_normal = {
+	'shoot_speed': 0.5,
+	'bullet': preload("res://bullet.tscn"),
+	'shots': 1,
+	'spread': 0
+}
+
+var weapon_shotty = {
+	'shoot_speed': 0.3,
+	'bullet': preload("res://shottybullet.tscn"),
+	'shots': 10,
+	'spread': 0.4
+}
+
 var levels = {
 	"lv1": {
 		"sound": s2,
 		"color": "54a0ff",
 		"weak_color": "ff9ff3",
 		"speed": 4.0,
-		"segs": 12
+		"segs": 12,
+		'weapons': [weapon_normal]
 	},
 	"lv2": {
 		"sound": s3,
 		"color": "5f27cd",
 		"weak_color": "48dbfb",
 		"speed": 3.0,
-		"segs": 16
+		"segs": 16,
+		'weapons': [weapon_normal]
 	},
 	"lv3": {
 		"sound": s1,
 		"color": "feca57",
 		"weak_color": "ff6b6b",
 		"speed": 2.0,
-		"segs": 20
+		"segs": 20,
+		'weapons': [weapon_normal, weapon_shotty]
 	}
 }
 
@@ -54,6 +71,9 @@ func game_over():
 			$UI/Panel/VBoxContainer/record.text = str(Manager.record)
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Player.weapons = [weapon_normal]
+	$Player.current_weapon = 0
+	$Player.set_weapon()
 	$UI/Panel/VBoxContainer/record.text = str(Manager.record)
 #	setup_level("l3")
 	$bg/Label.text = str(health)
@@ -71,6 +91,9 @@ func setup_level(type):
 	$loop_spawner.col2 = levels[type]["weak_color"]
 	$loop_spawner.speed = levels[type]["speed"]
 	$Player.set_col(levels[type]["weak_color"])
+	$Player.weapons = levels[type]["weapons"]
+	$Player.current_weapon = 0
+	$Player.set_weapon()
 	$loop_spawner/Timer.start()
 
 func add_kill():

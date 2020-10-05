@@ -20,8 +20,10 @@ func _ready():
 	$Polygon2D.polygon = points
 	$Polygon2D.color = bullet_color
 	$collision/collisionshape.shape.radius = size
-	
-	shoot(Vector2(1,1))
+
+
+func remove_collision():
+	$collision.queue_free()
 
 func shoot(direction:Vector2):
 	self.direction = direction
