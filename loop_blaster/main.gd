@@ -17,8 +17,8 @@ var weapon_normal = {
 	'shots': 1,
 	'spread': 0,
 	'pitch': 3.0,
-	'reload_upgrade': 0,
-	'bullet_upgrade':0
+	'reload_upgrade': Manager.r,
+	'bullet_upgrade': Manager.s
 }
 
 var weapon_shotty = {
@@ -27,8 +27,8 @@ var weapon_shotty = {
 	'shots': 6,
 	'spread': 0.5,
 	'pitch': 0.5,
-	'reload_upgrade': 0,
-	'bullet_upgrade':0
+	'reload_upgrade': Manager.r,
+	'bullet_upgrade': Manager.s
 }
 
 var levels = {
@@ -69,7 +69,6 @@ func damage_player():
 func game_over():
 	if $Player:
 		$Player.queue_free()
-		$UI/retry_box/AnimationPlayer.play("retry")
 		$AudioStreamDeath.play()
 		$AudioStreamDeath2.play()
 		$death_anim/Particles2D.restart()
@@ -87,6 +86,7 @@ func game_over():
 					Manager.l3_record = kills
 					Manager.save()
 		update_records()
+		$transition/AnimationPlayer.play("fade_out")
 		
 func update_records():
 	for item in get_tree().get_nodes_in_group("option"):
@@ -175,20 +175,26 @@ func handle_option(area_in):
 	else: 
 		area_in.die_but_not_really()
 		var upgrade_amount = upgrade(area_in.upgrade_type)
-		if upgrade_amount > 0:
+		if upgrade_amount:
 			$UI.change_money(money)
 			area_in.update_rec(upgrade_amount)
 	
 
 func upgrade(type):
-	if type =="reload" and weapon_shotty['reload_upgrade'] < 5 and money >= weapon_shotty['reload_upgrade'] + 1:
-		weapon_shotty['reload_upgrade'] += 1
-		weapon_normal['reload_upgrade'] += 1
-		money -= weapon_shotty['reload_upgrade']
-		return weapon_shotty['reload_upgrade']
-	elif type == "bullet" and weapon_shotty['bullet_upgrade'] < 5 and money >= weapon_shotty['bullet_upgrade'] + 1:
-		weapon_shotty['bullet_upgrade'] += 1
-		weapon_normal['bullet_upgrade'] += 1
-		money -= weapon_shotty['bullet_upgrade']
-		return weapon_shotty['bullet_upgrade']
+	if type =="reload" and Manager.r < 5 and money >= Manager.r + 1:
+		Manager.r += 1
+		money -= Manager.r
+		Manager.save()
+		return Manager.r
+	elif type == "bullet" and Manager.s < 5 and money >= Manager.s + 1:
+		Manager.s += 1
+		money -=  Manager.s
+		Manager.save()
+		return  Manager.s
+	elif type == "auto" and money >= 10:
+		money -= 10
+		Manager.auto = true
+		Manager.save()
+		return true
+	
 	return 0

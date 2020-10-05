@@ -59,7 +59,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 resource_name = "pop2"
 length = 1.5
 step = 0.05
@@ -90,13 +90,13 @@ tracks/1/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 1 ), 0.0, 2.65421, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=5]
-curve = SubResource( 4 )
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=7]
 emission_shape = 1
 emission_sphere_radius = 50.0
 flag_disable_z = true
@@ -109,7 +109,7 @@ orbit_velocity_random = 0.0
 damping = 400.0
 scale = 33.0
 scale_random = 0.5
-scale_curve = SubResource( 5 )
+scale_curve = SubResource( 6 )
 
 [node name="option" type="Area2D" groups=[
 "option",
@@ -185,7 +185,7 @@ end_cap_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/pop = SubResource( 3 )
-anims/pop2 = SubResource( 7 )
+anims/pop2 = SubResource( 4 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 emitting = false
@@ -193,7 +193,7 @@ amount = 64
 lifetime = 0.66
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 6 )
+process_material = SubResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )

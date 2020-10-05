@@ -12,7 +12,8 @@ var levels = {
 	"Moebius": ["lv2", "48dbfb"],
 	"Ouroboros": ["lv3", "ff6b6b"],
 	"Upgrade Bullet": ["shop", "ffffff"],
-	"Upgrade Reload": ["shop", "ffffff"]
+	"Upgrade Reload": ["shop", "ffffff"],
+	"Automatic": ["shop", "ffffff"]
 }
 
 func update_record():
@@ -24,7 +25,12 @@ func update_record():
 		"lv3":
 			$Control/VBoxContainer/rec.text = str(Manager.l3_record)
 		"shop":
-			pass
+			if option_type == "Automatic": 
+				$Control/VBoxContainer/rec.text = String(Manager.auto)
+			if option_type == "Upgrade Bullet": 
+				$Control/VBoxContainer/rec.text = String(Manager.s)
+			if option_type == "Upgrade Reload": 
+				$Control/VBoxContainer/rec.text = String(Manager.r)	
 #	$Control/VBoxContainer/rec.text = str(level)
 
 func invis():
@@ -51,6 +57,9 @@ func _ready():
 	if option_name == "Upgrade Reload": 
 		option_name ="Upgrade\nReload"
 		upgrade_type = 'reload'
+	if option_name == "Automatic": 
+		option_name ="Automatic"
+		upgrade_type = 'auto'
 
 	$Control/VBoxContainer/Label.text = option_name
 	$Line2D.init(12)

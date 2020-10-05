@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://loop_collision.gd" type="Script" id=1]
 [ext_resource path="res://player.tscn" type="PackedScene" id=2]
@@ -63,7 +63,7 @@ shader_param/intensity = 0.75
 
 [sub_resource type="Animation" id=7]
 resource_name = "start"
-length = 1.4
+length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("option:position")
 tracks/0/interp = 1
@@ -143,10 +143,10 @@ tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0.2, 0.5, 0.8, 1, 1.2 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0.2, 0.5, 0.8, 1, 1.2, 1.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ true, true, true, true, true ]
+"values": [ true, true, true, true, true, true ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("../upgrades/option_reload_time:position")
@@ -196,32 +196,29 @@ tracks/10/keys = {
 "update": 0,
 "values": [ Vector2( 0.3, 0.3 ), Vector2( 1.3, 1.3 ) ]
 }
-
-[sub_resource type="Animation" id=8]
-length = 0.3
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+tracks/11/type = "value"
+tracks/11/path = NodePath("../upgrades/option_c:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 481, -128 ), Vector2( 481, 275 ), Vector2( 481, 269 ) ]
+"values": [ Vector2( 0, 526 ), Vector2( 0, 226 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+tracks/12/type = "value"
+tracks/12/path = NodePath("../upgrades/option_c:scale")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1.4 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
+"values": [ Vector2( 0.3, 0.3 ), Vector2( 1.3, 1.3 ) ]
 }
 
 [sub_resource type="Shader" id=9]
@@ -236,7 +233,7 @@ custom_defines = ""
 [sub_resource type="ShaderMaterial" id=10]
 resource_local_to_scene = true
 shader = SubResource( 9 )
-shader_param/wipe = 1.0
+shader_param/wipe = 0.0213621
 
 [sub_resource type="Animation" id=11]
 tracks/0/type = "value"
@@ -267,7 +264,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=12]
-length = 0.15
+length = 1.5
 step = 0.01
 tracks/0/type = "method"
 tracks/0/path = NodePath("..")
@@ -276,7 +273,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0.15 ),
+"times": PoolRealArray( 1.5 ),
 "transitions": PoolRealArray( 1 ),
 "values": [ {
 "args": [  ],
@@ -290,7 +287,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.15 ),
+"times": PoolRealArray( 0.9, 1.4 ),
 "transitions": PoolRealArray( 0.707107, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0 ]
@@ -346,7 +343,7 @@ position = Vector2( 512, 512 )
 rotation_speed = 0.05
 
 [node name="death_anim" type="Node2D" parent="."]
-position = Vector2( 512, 300 )
+position = Vector2( 512, 512 )
 
 [node name="Particles2D" type="Particles2D" parent="death_anim"]
 emitting = false
@@ -405,29 +402,28 @@ __meta__ = {
 position = Vector2( 512, 600 )
 
 [node name="option_reload_time" parent="upgrades" instance=ExtResource( 12 )]
-position = Vector2( 561.389, 170.154 )
-scale = Vector2( 0.3, 0.3 )
+position = Vector2( 150, 50 )
 option_type = "Upgrade Reload"
 
 [node name="option_bullet_speed" parent="upgrades" instance=ExtResource( 12 )]
-position = Vector2( -559.002, 155.831 )
-scale = Vector2( 0.3, 0.3 )
+position = Vector2( -150, 50 )
 option_type = "Upgrade Bullet"
+
+[node name="option_c" parent="upgrades" instance=ExtResource( 12 )]
+position = Vector2( 0, 226 )
+option_type = "Automatic"
 
 [node name="level_select" type="Node2D" parent="."]
 
 [node name="option" parent="level_select" instance=ExtResource( 12 )]
-position = Vector2( 40, -104 )
-scale = Vector2( 0.3, 0.3 )
+position = Vector2( 212, 124 )
 
 [node name="option2" parent="level_select" instance=ExtResource( 12 )]
-position = Vector2( 508, -152 )
-scale = Vector2( 0.3, 0.3 )
+position = Vector2( 512, 84 )
 option_type = "Moebius"
 
 [node name="option3" parent="level_select" instance=ExtResource( 12 )]
-position = Vector2( 1048, -128 )
-scale = Vector2( 0.3, 0.3 )
+position = Vector2( 812, 124 )
 option_type = "Ouroboros"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="level_select"]
@@ -524,60 +520,7 @@ margin_right = 41.0
 margin_bottom = 140.0
 text = "0"
 
-[node name="retry_box" type="Panel" parent="UI"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -428.0
-margin_right = 31.0
-margin_bottom = -366.0
-rect_min_size = Vector2( 62, 62 )
-rect_scale = Vector2( 1e-05, 1e-05 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/retry_box"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 62, 62 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="UI/retry_box/VBoxContainer"]
-margin_right = 62.0
-margin_bottom = 14.0
-text = "try again?"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="UI/retry_box/VBoxContainer"]
-margin_top = 18.0
-margin_right = 62.0
-margin_bottom = 38.0
-text = "replay"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button2" type="Button" parent="UI/retry_box/VBoxContainer"]
-margin_top = 42.0
-margin_right = 62.0
-margin_bottom = 62.0
-text = "quit"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/retry_box"]
-anims/retry = SubResource( 8 )
-
 [node name="transition" type="Control" parent="."]
-visible = false
 margin_right = 1024.0
 margin_bottom = 1024.0
 rect_min_size = Vector2( 1024, 1024 )
@@ -608,7 +551,7 @@ environment = ExtResource( 7 )
 [node name="particle_pool" parent="." instance=ExtResource( 6 )]
 
 [node name="wave_label" parent="." instance=ExtResource( 15 )]
+margin_right = 1024.0
+margin_bottom = 600.0
 [connection signal="timeout" from="loop_spawner/Timer" to="loop_spawner" method="_on_Timer_timeout"]
 [connection signal="pressed" from="UI/Button" to="UI" method="change_input_method"]
-[connection signal="pressed" from="UI/retry_box/VBoxContainer/Button" to="." method="_on_Button_pressed"]
-[connection signal="pressed" from="UI/retry_box/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]

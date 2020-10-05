@@ -6,6 +6,9 @@ export(float) var shoot_speed:float = 0.5
 var can_shoot:bool = true
 var shots = 1
 var spread = 0
+var forgive = false
+
+var auto = false
 
 #var bullets:Array = [Color("ee5253"), Color("2e86de"), Color("f368e0")]
 #var current_bullet_selection = 0
@@ -31,8 +34,13 @@ func _physics_process(delta):
 func _input(event):
 	if event.is_action_pressed("shoot"):
 		shoot()
+		if Manager.auto:
+			auto = true
 	if event.is_action_pressed("swap_bullet"):
 		change_weapon()
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_LEFT and not event.pressed:
+			auto = false
 
 func change_weapon():
 	current_weapon = (current_weapon + 1) % weapons.size()
@@ -60,6 +68,9 @@ func set_col(c):
 
 func reload_done():
 	can_shoot = true
+	if forgive or auto:
+		forgive = false
+		shoot()
 
 func shoot():
 	if can_shoot:
@@ -74,7 +85,7 @@ func shoot():
 		
 		for i in range(shots):
 			var b = bullet.instance()
-			b.speed += weapons[current_weapon]['bullet_upgrade']*0.5
+			b.speed += Manager.s*0.5
 			b.bullet_color = $Polygon2D/current_color.color
 			get_parent().add_child(b)
 			b.global_position = $Polygon2D/bullet_spawn.global_position
@@ -84,5 +95,17 @@ func shoot():
 #			var shot_direction = self.global_position.direction_to($Polygon2D.global_position).normalized()
 			b.shoot(shot_direction)
 			
-		$reload_visualiser.reload(shoot_speed - weapons[current_weapon]['reload_upgrade']*0.05)
+		$reload_visualiser.reload(shoot_speed - Manager.r*0.05)
 		can_shoot = false
+	else:
+		forgive_shot()
+
+
+func forgive_shot():
+	if not forgive:
+		forgive = true
+	$Timer.start()
+
+
+func _on_Timer_timeout():
+	forgive = false
