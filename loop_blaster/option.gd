@@ -13,10 +13,20 @@ var levels = {
 	"Shop": ["shop", "feca57"]
 }
 
+func update_record():
+	match levels[option_type][0]:
+		"lv1":
+			$Control/VBoxContainer/rec.text = str(Manager.l1_record)
+		"lv2":
+			$Control/VBoxContainer/rec.text = str(Manager.l2_record)
+		"lv3":
+			$Control/VBoxContainer/rec.text = str(Manager.l3_record)
+#	$Control/VBoxContainer/rec.text = str(level)
+
 func invis():
 	$Polygon2D.visible = false
 	$Line2D.visible = false
-	$Control/Label.visible = false
+	$Control/VBoxContainer/Label.visible = false
 
 func die():
 	$AnimationPlayer.play("pop")
@@ -27,7 +37,7 @@ func _ready():
 	randomize()
 	create_loop()
 	$Line2D.default_color = col_blast(levels[option_type][1])
-	$Control/Label.text = option_type
+	$Control/VBoxContainer/Label.text = option_type
 	$Line2D.init(12)
 	$Line2D.n.seed = randi()
 	

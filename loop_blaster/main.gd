@@ -33,6 +33,7 @@ var levels = {
 		"segs": 20
 	}
 }
+var cur_lv = ""
 
 func damage_player():
 	if not $Player: return
@@ -48,13 +49,28 @@ func game_over():
 		$AudioStreamDeath.play()
 		$AudioStreamDeath2.play()
 		$death_anim/Particles2D.restart()
-		if kills > Manager.record:
-			Manager.record = kills
-			Manager.save()
-			$UI/Panel/VBoxContainer/record.text = str(Manager.record)
+		match cur_lv:
+			"lv1":
+				if kills > Manager.l1_record:
+					Manager.l1_record = kills
+					Manager.save()
+			"lv2":
+				if kills > Manager.l2_record:
+					Manager.l2_record = kills
+					Manager.save()
+			"lv3":
+				if kills > Manager.l3_record:
+					Manager.l3_record = kills
+					Manager.save()
+		update_records()
+		
+func update_records():
+	for item in get_tree().get_nodes_in_group("option"):
+		item.update_record()
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$UI/Panel/VBoxContainer/record.text = str(Manager.record)
+	update_records()
 #	setup_level("l3")
 	$bg/Label.text = str(health)
 	$bg/Label.text = str(health)
@@ -73,6 +89,7 @@ func setup_level(type):
 	$loop_spawner.speed = levels[type]["speed"]
 	$Player.set_col(levels[type]["weak_color"])
 	$loop_spawner/Timer.start()
+	cur_lv = type
 
 func add_kill():
 	kills += 1
