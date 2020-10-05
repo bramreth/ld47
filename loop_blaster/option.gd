@@ -26,10 +26,20 @@ func _ready():
 	assert(option_type in levels.keys(), "invalid option type")
 	randomize()
 	create_loop()
-	$Line2D.default_color = levels[option_type][1]
+	$Line2D.default_color = col_blast(levels[option_type][1])
 	$Control/Label.text = option_type
 	$Line2D.init(12)
 	$Line2D.n.seed = randi()
+	
+func col_blast(col):
+	var c = Color(col)
+	if c.r > 0.9:
+		c.r *= 2
+	if c.g > 0.9:
+		c.g *= 2
+	if c.b > 0.9:
+		c.b *= 2
+	return c
 	
 func create_loop():
 	$Line2D.add_point(Vector2(cos(0), sin(0)))

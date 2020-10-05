@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://loop_collision.gd" type="Script" id=1]
 [ext_resource path="res://player.tscn" type="PackedScene" id=2]
@@ -13,19 +13,20 @@
 [ext_resource path="res://insayne2.wav" type="AudioStream" id=11]
 [ext_resource path="res://option.tscn" type="PackedScene" id=12]
 [ext_resource path="res://sfx/reload.wav" type="AudioStream" id=13]
+[ext_resource path="res://sfx/dud.wav" type="AudioStream" id=14]
 
-[sub_resource type="Curve2D" id=11]
+[sub_resource type="Curve2D" id=1]
 _data = {
 "points": PoolVector2Array( 0.5, 64.5, -0.5, -64.5, 128, 320, -64, -0.5, 64, 0.5, 256, 192, -62, -61, 62, 61, 512, 320, -64, -1, 64, 1, 768, 384, 0.5, 63, -0.5, -63, 896, 320, 65, 0, -65, 0, 768, 192, 65.5, -63.5, -65.5, 63.5, 512, 320, 64, -1.5, -64, 1.5, 256, 384, -0.5, 62.5, 0.5, -62.5, 128, 320 )
 }
 
-[sub_resource type="Curve" id=8]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 1 ), 0.0, 2.30781, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=9]
-curve = SubResource( 8 )
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=10]
+[sub_resource type="ParticlesMaterial" id=4]
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
@@ -39,10 +40,10 @@ damping = 100.0
 angle = 360.0
 angle_random = 1.0
 scale = 20.0
-scale_curve = SubResource( 9 )
+scale_curve = SubResource( 3 )
 color = Color( 0.113725, 0.819608, 0.631373, 1 )
 
-[sub_resource type="Shader" id=2]
+[sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
 uniform vec2 target = vec2(0.5f);
 uniform float intensity: hint_range(0f, 1f);
@@ -52,13 +53,100 @@ void fragment(){
 }"
 custom_defines = ""
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
 shader_param/target = Vector2( 0.5, 0.5 )
 shader_param/intensity = 0.75
 
-[sub_resource type="Animation" id=1]
-resource_name = "retry"
+[sub_resource type="Animation" id=12]
+resource_name = "start"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/path = NodePath("option:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.63728, 1 ),
+"update": 0,
+"values": [ Vector2( 40, -104 ), Vector2( 212, 124 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("option2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.63728, 1 ),
+"update": 0,
+"values": [ Vector2( 508, -152 ), Vector2( 512, 84 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("option3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 0.63728, 1 ),
+"update": 0,
+"values": [ Vector2( 1048, -128 ), Vector2( 812, 124 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("option3:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.8 ),
+"transitions": PoolRealArray( 0.63728, 1 ),
+"update": 0,
+"values": [ Vector2( 0.3, 0.3 ), Vector2( 1.3, 1.3 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("option:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.63728, 1 ),
+"update": 0,
+"values": [ Vector2( 0.3, 0.3 ), Vector2( 1.3, 1.3 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("option2:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.63728, 1 ),
+"update": 0,
+"values": [ Vector2( 0.3, 0.3 ), Vector2( 1.3, 1.3 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AudioStreamPlayer:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.2, 0.5, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ true, true, true ]
+}
+
+[sub_resource type="Animation" id=7]
 length = 0.3
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:rect_position")
@@ -85,7 +173,7 @@ tracks/1/keys = {
 "values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1.2, 1.2 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=8]
 code = "shader_type canvas_item;
 uniform float wipe: hint_range(0f, 1f);
 
@@ -94,13 +182,12 @@ void fragment(){
 }"
 custom_defines = ""
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id=9]
 resource_local_to_scene = true
-shader = SubResource( 4 )
+shader = SubResource( 8 )
 shader_param/wipe = 1.0
 
-[sub_resource type="Animation" id=7]
-resource_name = "fade_in"
+[sub_resource type="Animation" id=10]
 tracks/0/type = "value"
 tracks/0/path = NodePath("ColorRect:material:shader_param/wipe")
 tracks/0/interp = 1
@@ -128,8 +215,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=6]
-resource_name = "fade_out"
+[sub_resource type="Animation" id=11]
 length = 0.15
 step = 0.01
 tracks/0/type = "method"
@@ -183,7 +269,7 @@ __meta__ = {
 [node name="Path2D" type="Path2D" parent="bg/ColorRect"]
 visible = false
 position = Vector2( 0, -16 )
-curve = SubResource( 11 )
+curve = SubResource( 1 )
 
 [node name="Label" type="Label" parent="bg"]
 visible = false
@@ -211,7 +297,7 @@ amount = 32
 lifetime = 4.0
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 10 )
+process_material = SubResource( 4 )
 
 [node name="AudioStreamDeath" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
@@ -250,7 +336,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="postprocess"]
-material = SubResource( 3 )
+material = SubResource( 6 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -270,6 +356,13 @@ option_type = "Moebius"
 [node name="option3" parent="level_select" instance=ExtResource( 12 )]
 position = Vector2( 812, 124 )
 option_type = "Ouroboros"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="level_select"]
+anims/start = SubResource( 12 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="level_select"]
+stream = ExtResource( 14 )
+volume_db = -4.0
 
 [node name="UI" type="Control" parent="."]
 margin_right = 1024.0
@@ -396,7 +489,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI/retry_box"]
-anims/retry = SubResource( 1 )
+anims/retry = SubResource( 7 )
 
 [node name="transition" type="Control" parent="."]
 visible = false
@@ -409,7 +502,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="transition"]
-material = SubResource( 5 )
+material = SubResource( 9 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -418,8 +511,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="transition"]
-anims/fade_in = SubResource( 7 )
-anims/fade_out = SubResource( 6 )
+anims/fade_in = SubResource( 10 )
+anims/fade_out = SubResource( 11 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )

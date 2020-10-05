@@ -79,6 +79,7 @@ func _ready():
 	$bg/Label.text = str(health)
 	$bg/Label.text = str(health)
 	$transition/AnimationPlayer.play("fade_in")
+	$level_select/AnimationPlayer.play("start")
 	
 	
 func setup_level(type):
