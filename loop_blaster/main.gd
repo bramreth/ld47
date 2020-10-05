@@ -3,6 +3,7 @@ extends Node2D
 
 var kills = 0
 var health = 1
+var money = 50
 
 var s1 = preload("res://insayne.wav")
 var s2 = preload("res://insayne2.wav")
@@ -15,7 +16,9 @@ var weapon_normal = {
 	'bullet': preload("res://bullet.tscn"),
 	'shots': 1,
 	'spread': 0,
-	'pitch': 3.0
+	'pitch': 3.0,
+	'reload_upgrade': 0,
+	'bullet_upgrade':0
 }
 
 var weapon_shotty = {
@@ -23,7 +26,9 @@ var weapon_shotty = {
 	'bullet': preload("res://shottybullet.tscn"),
 	'shots': 6,
 	'spread': 0.5,
-	'pitch': 0.0
+	'pitch': 0.5,
+	'reload_upgrade': 0,
+	'bullet_upgrade':0
 }
 
 var levels = {
@@ -91,7 +96,7 @@ func update_records():
 func _ready():
 	update_records()
 	$loop_spawner.connect("wave_started", $wave_label, 'show_wave')
-	$Player.weapons = [weapon_normal]
+	$Player.weapons = [weapon_normal, weapon_shotty]
 	$Player.current_weapon = 0
 	$Player.set_weapon()
 	$UI/Panel/VBoxContainer/record.text = str(Manager.record)
@@ -154,14 +159,36 @@ func _on_Button2_pressed():
 func handle_option(area_in):
 	if started: return
 	print(area_in.name, "!")
-	setup_level(area_in.levels[area_in.option_type][0])
-	area_in.die()
-	$AudioStreamSelect.play()
-	started = true
-	var other_items = get_tree().get_nodes_in_group("option")
-	other_items.remove(other_items.find(area_in))
-	for item in other_items:
-		yield(get_tree().create_timer(0.2), "timeout")
-		if item:
-			item.die()
+	var levels = ["option", "option2", "option3"]
 	
+	if levels.find(area_in.name) != -1:
+		area_in.die()
+		setup_level(area_in.levels[area_in.option_type][0])
+		$AudioStreamSelect.play()
+		started = true
+		var other_items = get_tree().get_nodes_in_group("option")
+		other_items.remove(other_items.find(area_in))
+		for item in other_items:
+			yield(get_tree().create_timer(0.2), "timeout")
+			if item:
+				item.die()
+	else: 
+		area_in.die_but_not_really()
+		var upgrade_amount = upgrade(area_in.upgrade_type)
+		if upgrade_amount > 0:
+			$UI.change_money(money)
+			area_in.update_rec(upgrade_amount)
+	
+
+func upgrade(type):
+	if type =="reload" and weapon_shotty['reload_upgrade'] < 5 and money >= weapon_shotty['reload_upgrade'] + 1:
+		weapon_shotty['reload_upgrade'] += 1
+		weapon_normal['reload_upgrade'] += 1
+		money -= weapon_shotty['reload_upgrade']
+		return weapon_shotty['reload_upgrade']
+	elif type == "bullet" and weapon_shotty['bullet_upgrade'] < 5 and money >= weapon_shotty['bullet_upgrade'] + 1:
+		weapon_shotty['bullet_upgrade'] += 1
+		weapon_normal['bullet_upgrade'] += 1
+		money -= weapon_shotty['bullet_upgrade']
+		return weapon_shotty['bullet_upgrade']
+	return 0

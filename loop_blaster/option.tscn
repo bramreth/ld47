@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://option.gd" type="Script" id=1]
 [ext_resource path="res://Line2D.gd" type="Script" id=2]
@@ -53,6 +53,37 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "pop2"
+length = 1.5
+step = 0.05
+tracks/0/type = "method"
+tracks/0/path = NodePath("Particles2D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "restart"
+} ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -154,6 +185,7 @@ end_cap_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/pop = SubResource( 3 )
+anims/pop2 = SubResource( 7 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 emitting = false
