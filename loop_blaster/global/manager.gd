@@ -37,6 +37,8 @@ func check_credit(k, cur_lv):
 	if k >= credit_list[creds_obj[cur_lv]]:
 		credits += 1
 		creds_obj[cur_lv] += 1
+		if creds_obj[cur_lv] >= 10:
+			credits += 5
 		return true
 	else:
 		return false

@@ -8,6 +8,3 @@ func change_input_method():
 		inputmanager.CONTROL_TYPE.KEYBOARD: inputmanager.change_control_type(inputmanager.CONTROL_TYPE.MOUSE)
 		inputmanager.CONTROL_TYPE.MOUSE: inputmanager.change_control_type(inputmanager.CONTROL_TYPE.KEYBOARD)
 
-
-func change_money(money):
-	$Panel/VBoxContainer/money.text = String(money)

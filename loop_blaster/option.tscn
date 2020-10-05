@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://option.gd" type="Script" id=1]
 [ext_resource path="res://Line2D.gd" type="Script" id=2]
 [ext_resource path="res://loop_theme.tres" type="Theme" id=3]
 [ext_resource path="res://sfx/dud.wav" type="AudioStream" id=4]
+[ext_resource path="res://Untitled_Artwork.png" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 75.0
@@ -111,6 +112,39 @@ scale = 33.0
 scale_random = 0.5
 scale_curve = SubResource( 6 )
 
+[sub_resource type="Animation" id=8]
+resource_name = "wiggle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 3.4822, 0.482968, 1 ),
+"update": 0,
+"values": [ Vector2( 43.0769, 73.8462 ), Vector2( 43.077, 70 ), Vector2( 43.0769, 73.8462 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "wigle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 0.554785, 0.574349 ),
+"update": 0,
+"values": [ -9.0, 9.0 ]
+}
+
 [node name="option" type="Area2D" groups=[
 "option",
 ]]
@@ -198,3 +232,27 @@ process_material = SubResource( 7 )
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 volume_db = 9.087
+
+[node name="Label" type="Label" parent="."]
+margin_left = 43.077
+margin_top = 71.7969
+margin_right = 103.084
+margin_bottom = 94.797
+theme = ExtResource( 3 )
+text = "x/10"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
+anims/wiggle = SubResource( 8 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+position = Vector2( 61.5385, 80 )
+rotation = -0.138242
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
+autoplay = "wigle"
+anims/wigle = SubResource( 9 )

@@ -20,10 +20,19 @@ func update_record():
 	match levels[option_type][0]:
 		"lv1":
 			$Control/VBoxContainer/rec.text = str(Manager.l1_record)
+			$Label.text = str(Manager.creds_obj[levels[option_type][0]]) + "/10"
+			if Manager.creds_obj[levels[option_type][0]] >= 10:
+				$Sprite.visible = true
 		"lv2":
 			$Control/VBoxContainer/rec.text = str(Manager.l2_record)
+			$Label.text = str(Manager.creds_obj[levels[option_type][0]]) + "/10"
+			if Manager.creds_obj[levels[option_type][0]] >= 10:
+				$Sprite.visible = true
 		"lv3":
 			$Control/VBoxContainer/rec.text = str(Manager.l3_record)
+			$Label.text = str(Manager.creds_obj[levels[option_type][0]]) + "/10"
+			if Manager.creds_obj[levels[option_type][0]] >= 10:
+				$Sprite.visible = true
 		"shop":
 			if option_type == "Automatic": 
 				$Control/VBoxContainer/rec.text = String(Manager.auto)
@@ -31,12 +40,14 @@ func update_record():
 				$Control/VBoxContainer/rec.text = String(Manager.s)
 			if option_type == "Upgrade Reload": 
 				$Control/VBoxContainer/rec.text = String(Manager.r)	
+	$Label.visible = not ($Label.text == "x/10")
 #	$Control/VBoxContainer/rec.text = str(level)
 
 func invis():
 	$Polygon2D.visible = false
 	$Line2D.visible = false
 	$Control/VBoxContainer.visible = false
+	$Label.visible = false
 
 func die():
 	$AnimationPlayer.play("pop")

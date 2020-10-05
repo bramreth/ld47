@@ -25,13 +25,13 @@ _data = {
 "points": PoolVector2Array( 0.5, 64.5, -0.5, -64.5, 128, 320, -64, -0.5, 64, 0.5, 256, 192, -62, -61, 62, 61, 512, 320, -64, -1, 64, 1, 768, 384, 0.5, 63, -0.5, -63, 896, 320, 65, 0, -65, 0, 768, 192, 65.5, -63.5, -65.5, 63.5, 512, 320, 64, -1.5, -64, 1.5, 256, 384, -0.5, 62.5, 0.5, -62.5, 128, 320 )
 }
 
-[sub_resource type="Curve" id=13]
+[sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.506289, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=14]
-curve = SubResource( 13 )
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=15]
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 2
 emission_box_extents = Vector3( 48, 512, 1 )
 flag_disable_z = true
@@ -44,15 +44,15 @@ angle = 720.0
 angle_random = 1.0
 scale = 88.0
 scale_random = 0.8
-scale_curve = SubResource( 14 )
+scale_curve = SubResource( 3 )
 
-[sub_resource type="Curve" id=2]
+[sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 1 ), 0.0, 2.30781, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=3]
-curve = SubResource( 2 )
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=7]
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
@@ -66,10 +66,10 @@ damping = 100.0
 angle = 360.0
 angle_random = 1.0
 scale = 20.0
-scale_curve = SubResource( 3 )
+scale_curve = SubResource( 6 )
 color = Color( 0.113725, 0.819608, 0.631373, 1 )
 
-[sub_resource type="Shader" id=5]
+[sub_resource type="Shader" id=8]
 code = "shader_type canvas_item;
 uniform vec2 target = vec2(0.5f);
 uniform float intensity: hint_range(0f, 1f);
@@ -79,13 +79,12 @@ void fragment(){
 }"
 custom_defines = ""
 
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 5 )
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
 shader_param/target = Vector2( 0.5, 0.5 )
 shader_param/intensity = 0.75
 
-[sub_resource type="Animation" id=7]
-resource_name = "start"
+[sub_resource type="Animation" id=10]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath("option:position")
@@ -244,15 +243,15 @@ tracks/12/keys = {
 "values": [ Vector2( 0.3, 0.3 ), Vector2( 1.3, 1.3 ) ]
 }
 
-[sub_resource type="DynamicFont" id=16]
-size = 36
+[sub_resource type="DynamicFont" id=11]
+size = 32
 extra_spacing_char = 4
 font_data = ExtResource( 18 )
 
-[sub_resource type="Theme" id=17]
-default_font = SubResource( 16 )
+[sub_resource type="Theme" id=12]
+default_font = SubResource( 11 )
 
-[sub_resource type="Shader" id=9]
+[sub_resource type="Shader" id=13]
 code = "shader_type canvas_item;
 uniform float wipe: hint_range(0f, 1f);
 
@@ -261,12 +260,12 @@ void fragment(){
 }"
 custom_defines = ""
 
-[sub_resource type="ShaderMaterial" id=10]
+[sub_resource type="ShaderMaterial" id=14]
 resource_local_to_scene = true
-shader = SubResource( 9 )
+shader = SubResource( 13 )
 shader_param/wipe = 1.0
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=15]
 tracks/0/type = "value"
 tracks/0/path = NodePath("ColorRect:material:shader_param/wipe")
 tracks/0/interp = 1
@@ -294,7 +293,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=16]
 length = 1.5
 tracks/0/type = "method"
 tracks/0/path = NodePath("..")
@@ -369,14 +368,14 @@ position = Vector2( 0, 512 )
 amount = 6
 lifetime = 2.0
 randomness = 1.0
-process_material = SubResource( 15 )
+process_material = SubResource( 4 )
 
 [node name="Particles2D4" type="Particles2D" parent="bg"]
 position = Vector2( 1024, 512 )
 amount = 6
 lifetime = 2.0
 randomness = 1.0
-process_material = SubResource( 15 )
+process_material = SubResource( 4 )
 
 [node name="Particles2D5" type="Particles2D" parent="bg"]
 position = Vector2( 512, 0 )
@@ -384,7 +383,7 @@ rotation = 1.5708
 amount = 6
 lifetime = 2.0
 randomness = 1.0
-process_material = SubResource( 15 )
+process_material = SubResource( 4 )
 
 [node name="Particles2D6" type="Particles2D" parent="bg"]
 position = Vector2( 512, 1024 )
@@ -392,7 +391,7 @@ rotation = 1.5708
 amount = 6
 lifetime = 2.0
 randomness = 1.0
-process_material = SubResource( 15 )
+process_material = SubResource( 4 )
 
 [node name="Particles2D" parent="bg" instance=ExtResource( 17 )]
 
@@ -411,7 +410,7 @@ amount = 32
 lifetime = 4.0
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 4 )
+process_material = SubResource( 7 )
 
 [node name="AudioStreamDeath" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
@@ -450,7 +449,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="postprocess"]
-material = SubResource( 6 )
+material = SubResource( 9 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -487,7 +486,7 @@ position = Vector2( 812, 124 )
 option_type = "Ouroboros"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="level_select"]
-anims/start = SubResource( 7 )
+anims/start = SubResource( 10 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="level_select"]
 stream = ExtResource( 14 )
@@ -516,85 +515,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="UI"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -46.0
-margin_bottom = 68.0
-rect_min_size = Vector2( 46, 150 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Panel"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="UI/Panel/VBoxContainer"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "rings"
-
-[node name="count" type="Label" parent="UI/Panel/VBoxContainer"]
-margin_top = 18.0
-margin_right = 40.0
-margin_bottom = 32.0
-text = "0"
-
-[node name="objlb" type="Label" parent="UI/Panel/VBoxContainer"]
-margin_top = 36.0
-margin_right = 40.0
-margin_bottom = 50.0
-text = "obj"
-
-[node name="obj" type="Label" parent="UI/Panel/VBoxContainer"]
-margin_top = 54.0
-margin_right = 40.0
-margin_bottom = 68.0
-text = "0"
-
-[node name="pointLabel" type="Label" parent="UI/Panel/VBoxContainer"]
-margin_top = 72.0
-margin_right = 40.0
-margin_bottom = 86.0
-text = "points"
-
-[node name="points" type="Label" parent="UI/Panel/VBoxContainer"]
-margin_top = 90.0
-margin_right = 40.0
-margin_bottom = 104.0
-text = "0"
-
-[node name="money_label" type="Label" parent="UI/Panel/VBoxContainer"]
-margin_top = 108.0
-margin_right = 40.0
-margin_bottom = 122.0
-text = "points"
-
-[node name="money" type="Label" parent="UI/Panel/VBoxContainer"]
-margin_top = 126.0
-margin_right = 40.0
-margin_bottom = 140.0
-text = "0"
-
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/Panel"]
-margin_left = -906.0
+[node name="RichTextLabel" type="RichTextLabel" parent="UI"]
+margin_left = 72.0
 margin_top = 800.0
-margin_right = -782.0
-margin_bottom = 924.0
+margin_right = 252.0
+margin_bottom = 980.0
 rect_min_size = Vector2( 180, 180 )
-theme = SubResource( 17 )
+theme = SubResource( 12 )
 bbcode_enabled = true
-bbcode_text = "[center]Credits:[/center]
-[center][rainbow freq=0.3 sat=10 val=20]4[/rainbow][/center]
-"
-text = "Credits:
-4
-"
 script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score" type="RichTextLabel" parent="UI"]
+margin_left = 772.0
+margin_top = 800.0
+margin_right = 952.0
+margin_bottom = 980.0
+rect_min_size = Vector2( 180, 180 )
+theme = SubResource( 12 )
+bbcode_enabled = true
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="transition" type="Control" parent="."]
 visible = false
@@ -607,7 +552,7 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="transition"]
-material = SubResource( 10 )
+material = SubResource( 14 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -616,8 +561,8 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="transition"]
-anims/fade_in = SubResource( 11 )
-anims/fade_out = SubResource( 12 )
+anims/fade_in = SubResource( 15 )
+anims/fade_out = SubResource( 16 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )

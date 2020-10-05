@@ -104,7 +104,7 @@ func _ready():
 	$bg/Label.text = str(health)
 	$transition/AnimationPlayer.play("fade_in")
 	$level_select/AnimationPlayer.play("start")
-	$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
+	$UI/RichTextLabel.set_credits(Manager.credits)	
 	
 func setup_level(type):
 	print(levels[type])
@@ -124,16 +124,15 @@ func setup_level(type):
 	$loop_spawner.start_wave()
 	$loop_spawner/Timer.start()
 	cur_lv = type
-	$UI/Panel/VBoxContainer/obj.text = str(Manager.get_credit(cur_lv))
+	$UI/score.set_score(0, Manager.get_credit(cur_lv))
 
 func add_kill():
 	kills += 1
-	$UI/Panel/VBoxContainer/count.text = str(kills)
+	$UI/score.set_score(kills, Manager.get_credit(cur_lv))
 	var c = Manager.check_credit(kills, cur_lv)
 	if c: 
 		$Player.credit()
-		$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
-	$UI/Panel/VBoxContainer/obj.text = str(Manager.get_credit(cur_lv))
+		$UI/RichTextLabel.set_credits(Manager.credits)	
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -182,7 +181,6 @@ func handle_option(area_in):
 		area_in.die_but_not_really()
 		var upgrade_amount = upgrade(area_in.upgrade_type)
 		if upgrade_amount:
-			$UI.change_money(money)
 			area_in.update_rec(upgrade_amount)
 	
 
@@ -191,19 +189,19 @@ func upgrade(type):
 		Manager.r += 1
 		Manager.credits -= Manager.r
 		Manager.save()
-		$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
+		$UI/RichTextLabel.set_credits(Manager.credits)	
 		return Manager.r
 	elif type == "bullet" and Manager.s < 5 and Manager.credits >= Manager.s + 1:
 		Manager.s += 1
 		Manager.credits -=  Manager.s
 		Manager.save()
-		$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
+		$UI/RichTextLabel.set_credits(Manager.credits)	
 		return  Manager.s
-	elif type == "auto" and Manager.credits >= 10:
-		Manager.credits -= 10
+	elif type == "auto" and Manager.credits >= 15:
+		Manager.credits -= 15
 		Manager.auto = true
 		Manager.save()
-		$UI/Panel/RichTextLabel.set_credits(Manager.credits)	
+		$UI/RichTextLabel.set_credits(Manager.credits)	
 		return true
 	
 	return 0
