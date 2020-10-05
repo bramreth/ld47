@@ -5,12 +5,14 @@ var segments = 12
 export var max_width = 75
 
 export(String) var option_type = "Loop"
+var upgrade_type:String = 'bullet'
 
 var levels = {
 	"Loop": ["lv1", "ff9ff3"],
 	"Moebius": ["lv2", "48dbfb"],
 	"Ouroboros": ["lv3", "ff6b6b"],
-	"Shop": ["shop", "feca57"]
+	"Upgrade Bullet": ["shop", "ffffff"],
+	"Upgrade Reload": ["shop", "ffffff"]
 }
 
 func update_record():
@@ -21,6 +23,8 @@ func update_record():
 			$Control/VBoxContainer/rec.text = str(Manager.l2_record)
 		"lv3":
 			$Control/VBoxContainer/rec.text = str(Manager.l3_record)
+		"shop":
+			pass
 #	$Control/VBoxContainer/rec.text = str(level)
 
 func invis():
@@ -31,13 +35,24 @@ func invis():
 func die():
 	$AnimationPlayer.play("pop")
 
+func die_but_not_really():
+	$AnimationPlayer.play("pop2")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	assert(option_type in levels.keys(), "invald option type")
 	randomize()
 	create_loop()
 	$Line2D.default_color = col_blast(levels[option_type][1])
-	$Control/VBoxContainer/Label.text = option_type
+	var option_name:String = option_type
+	if option_name == "Upgrade Bullet": 
+		option_name = "Upgrade\nBullet"
+		upgrade_type = "bullet"
+	if option_name == "Upgrade Reload": 
+		option_name ="Upgrade\nReload"
+		upgrade_type = 'reload'
+
+	$Control/VBoxContainer/Label.text = option_name
 	$Line2D.init(12)
 	$Line2D.n.seed = randi()
 	update_record()
@@ -62,3 +77,8 @@ func create_loop():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Polygon2D.polygon = $Line2D.points
+
+
+func update_rec(num):
+	print(num)
+	$Control/VBoxContainer/rec.text = String(num)

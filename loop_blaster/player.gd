@@ -74,6 +74,7 @@ func shoot():
 		
 		for i in range(shots):
 			var b = bullet.instance()
+			b.speed += weapons[current_weapon]['bullet_upgrade']*0.5
 			b.bullet_color = $Polygon2D/current_color.color
 			get_parent().add_child(b)
 			b.global_position = $Polygon2D/bullet_spawn.global_position
@@ -82,6 +83,6 @@ func shoot():
 			var shot_direction = -Vector2(cos(shot_angle), sin(shot_angle)).normalized()
 #			var shot_direction = self.global_position.direction_to($Polygon2D.global_position).normalized()
 			b.shoot(shot_direction)
-		
-		$reload_visualiser.reload(shoot_speed)
+			
+		$reload_visualiser.reload(shoot_speed - weapons[current_weapon]['reload_upgrade']*0.05)
 		can_shoot = false

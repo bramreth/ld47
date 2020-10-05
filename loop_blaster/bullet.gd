@@ -26,6 +26,7 @@ func remove_collision():
 	$collision.queue_free()
 
 func shoot(direction:Vector2):
+	print(speed)
 	self.direction = direction
 	set_physics_process(true)
 
