@@ -30,6 +30,7 @@ damping_random = 0.66
 scale = 20.0
 scale_random = 1.0
 scale_curve = SubResource( 2 )
+color = Color( 2, 2, 2, 1 )
 
 [node name="particle_pool" type="Node2D"]
 

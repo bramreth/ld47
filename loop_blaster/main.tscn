@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://loop_collision.gd" type="Script" id=1]
 [ext_resource path="res://player.tscn" type="PackedScene" id=2]
@@ -21,11 +21,36 @@ _data = {
 "points": PoolVector2Array( 0.5, 64.5, -0.5, -64.5, 128, 320, -64, -0.5, 64, 0.5, 256, 192, -62, -61, 62, 61, 512, 320, -64, -1, 64, 1, 768, 384, 0.5, 63, -0.5, -63, 896, 320, 65, 0, -65, 0, 768, 192, 65.5, -63.5, -65.5, 63.5, 512, 320, 64, -1.5, -64, 1.5, 256, 384, -0.5, 62.5, 0.5, -62.5, 128, 320 )
 }
 
+[sub_resource type="Curve" id=14]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 1.4, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=15]
+curve = SubResource( 14 )
+
 [sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 2
+emission_box_extents = Vector3( 512, 512, 1 )
 flag_disable_z = true
-gravity = Vector3( 0, 98, 0 )
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.1
+orbit_velocity_random = 0.8
+angle = 360.0
+angle_random = 1.0
+scale = 20.0
+scale_curve = SubResource( 15 )
+color = Color( 1.5, 1.5, 1.5, 1 )
+
+[sub_resource type="ParticlesMaterial" id=16]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1000.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+angle = 360.0
+angle_random = 1.0
+scale = 5.0
+scale_curve = SubResource( 15 )
 
 [sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 2.30781, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
@@ -58,6 +83,7 @@ uniform float intensity: hint_range(0f, 1f);
 void fragment(){
 	COLOR.rgb = textureLod(SCREEN_TEXTURE, SCREEN_UV, 6f * intensity * (distance(target, UV)/sqrt(2f))).rgb;
 }"
+custom_defines = ""
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = SubResource( 6 )
@@ -186,6 +212,7 @@ uniform float wipe: hint_range(0f, 1f);
 void fragment(){
 	COLOR.rgba = mix(vec4(0), COLOR.rgba,  wipe);
 }"
+custom_defines = ""
 
 [sub_resource type="ShaderMaterial" id=11]
 resource_local_to_scene = true
@@ -292,9 +319,15 @@ __meta__ = {
 }
 
 [node name="Particles2D" type="Particles2D" parent="bg"]
+position = Vector2( 512, 512 )
+amount = 6
+preprocess = 6.0
 process_material = SubResource( 2 )
 
 [node name="Particles2D2" type="Particles2D" parent="bg"]
+position = Vector2( 512, 512 )
+preprocess = 8.0
+process_material = SubResource( 16 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 512, 512 )
