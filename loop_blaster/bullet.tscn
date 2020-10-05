@@ -16,6 +16,7 @@ color = Color( 5, 0.32, 0.33, 1 )
 antialiased = true
 
 [node name="collision" type="Area2D" parent="."]
+collision_layer = 2
 
 [node name="collisionshape" type="CollisionShape2D" parent="collision"]
 shape = SubResource( 1 )
